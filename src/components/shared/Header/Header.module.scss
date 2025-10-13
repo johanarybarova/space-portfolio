@@ -1,0 +1,60 @@
+@import '@/styles/breakpoints';
+@import '@/styles/fonts';
+@import '@/styles/z-index';
+
+.navigation {
+  position: fixed;
+  top: 0;
+  z-index: $z-index-header;
+  padding: var(--vertical-m) var(--horizontal-m);
+
+  @include min768 {
+    padding: var(--vertical-m) var(--horizontal-lg);
+    background: unset;
+  }
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $z-index-base;
+    width: 100%;
+    height: 250%;
+    background: linear-gradient(to top, transparent 0%, var(--black-hole) 75%);
+    content: '';
+
+    @include min768 {
+      content: none;
+    }
+  }
+}
+
+.navContent {
+  z-index: $z-index-header;
+}
+
+.iconWrapper {
+  position: relative;
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+}
+
+.icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center; // ✅ spin around its center
+  animation: spin 16s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

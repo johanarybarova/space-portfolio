@@ -1,0 +1,53 @@
+@import '@/styles/breakpoints';
+@import '@/styles/fonts';
+@import '@/styles/z-index';
+
+.textContentWrapper {
+  position: relative;
+  margin-bottom: 600px;
+  padding: var(--vertical-lg) var(--horizontal-s);
+
+  // background-color: var(--black-hole);;
+  border-top: 1px solid var(--cyan-atom);
+
+  @include min768 {
+    padding: var(--vertical-lg) var(--horizontal-lg);
+
+    // background-color: var(--black-hole);;
+  }
+
+  @include min1024 {
+    margin-left: var(--gap-6xl);
+  }
+
+  @include min1440 {
+    flex-direction: row;
+    max-width: 1024px;
+  }
+}
+
+.bottomContent {
+  flex-grow: 1;
+  gap: var(--gap-9xl);
+  width: 100%;
+
+  @include min1440 {
+    margin-left: var(--horizontal-9xl);
+  }
+}
+
+.container {
+  gap: var(--gap-m);
+  max-width: 1440px;
+  margin: 0 auto;
+
+  @include min1024 {
+    flex-direction: row;
+    gap: auto;
+    justify-content: space-between;
+  }
+}
+
+.role {
+  @include T20Soft;
+}

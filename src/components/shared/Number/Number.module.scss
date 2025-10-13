@@ -1,0 +1,19 @@
+@import '@/styles/breakpoints';
+@import '@/styles/fonts';
+
+.number {
+  @include T64Soft;
+
+  display: inline-block;
+  height: fit-content;
+
+  @include min768 {
+    @include T96Soft;
+  }
+
+  @include min1024 {
+    position: sticky;
+    top: var(--vertical-5xl);
+    margin-top: var(--vertical-xs);
+  }
+}

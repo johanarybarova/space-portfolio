@@ -1,0 +1,17 @@
+@import '@/styles/breakpoints';
+
+.section {
+  height: 100vh;
+
+  // background: linear-gradient(to top, var(--black-hole), var(--cyan-atom));
+  // background: linear-gradient(to top, var(--black-hole), var(--black-hole));
+
+  @include min768 {
+    width: 50%;
+  }
+}
+
+.headline,
+.subheadline {
+  // color: var(--black-hole);
+}

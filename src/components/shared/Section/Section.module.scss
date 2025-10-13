@@ -1,0 +1,13 @@
+@import '@/styles/breakpoints';
+
+.section {
+  width: 100%;
+  padding: var(--section-padding-small);
+
+  --section-padding-small: 0 var(--horizontal-xs);
+  --section-padding-large: 0 var(--horizontal-13xl);
+
+  @include min768 {
+    padding: var(--section-padding-large);
+  }
+}

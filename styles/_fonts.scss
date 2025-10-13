@@ -1,0 +1,427 @@
+@use 'breakpoints' as *;
+
+@mixin fontDefaults {
+  font-family: var(--font-space-grotesk);
+  font-style: normal;
+}
+
+$line-height-tight: 110%;
+$line-height-loose: 150%;
+$font-weight-soft: 300;
+$font-weight-strong: 500;
+
+@mixin L12Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 12px;
+  line-height: $line-height-loose;
+}
+
+@mixin L16Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 16px;
+  line-height: $line-height-loose;
+}
+
+@mixin L20Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 20px;
+  line-height: $line-height-loose;
+}
+
+@mixin L24Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 24px;
+  line-height: $line-height-loose;
+}
+
+@mixin L32Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 32px;
+  line-height: $line-height-loose;
+}
+
+@mixin L40Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 40px;
+  line-height: $line-height-loose;
+}
+
+@mixin L48Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 48px;
+  line-height: $line-height-loose;
+}
+
+@mixin L56Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 56px;
+  line-height: $line-height-loose;
+}
+
+@mixin L64Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 64px;
+  line-height: $line-height-loose;
+}
+
+@mixin L72Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 72px;
+  line-height: $line-height-loose;
+}
+
+@mixin L80Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 80px;
+  line-height: $line-height-loose;
+}
+
+@mixin L88Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 88px;
+  line-height: $line-height-loose;
+}
+
+@mixin L96Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 96px;
+  line-height: $line-height-loose;
+}
+
+@mixin L12Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 12px;
+  line-height: $line-height-loose;
+}
+
+@mixin L16Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 16px;
+  line-height: $line-height-loose;
+}
+
+@mixin L20Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 20px;
+  line-height: $line-height-loose;
+}
+
+@mixin L24Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 24px;
+  line-height: $line-height-loose;
+}
+
+@mixin L32Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 32px;
+  line-height: $line-height-loose;
+}
+
+@mixin L40Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 40px;
+  line-height: $line-height-loose;
+}
+
+@mixin L48Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 48px;
+  line-height: $line-height-loose;
+}
+
+@mixin L56Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 56px;
+  line-height: $line-height-loose;
+}
+
+@mixin L64Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 64px;
+  line-height: $line-height-loose;
+}
+
+@mixin L72Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 72px;
+  line-height: $line-height-loose;
+}
+
+@mixin L80Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 80px;
+  line-height: $line-height-loose;
+}
+
+@mixin L88Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 88px;
+  line-height: $line-height-loose;
+}
+
+@mixin L96Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 96px;
+  line-height: $line-height-loose;
+}
+
+@mixin T12Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 12px;
+  line-height: $line-height-tight;
+}
+
+@mixin T16Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 16px;
+  line-height: $line-height-tight;
+}
+
+@mixin T20Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 20px;
+  line-height: $line-height-tight;
+}
+
+@mixin T24Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 24px;
+  line-height: $line-height-tight;
+}
+
+@mixin T32Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 32px;
+  line-height: $line-height-tight;
+}
+
+@mixin T40Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 40px;
+  line-height: $line-height-tight;
+}
+
+@mixin T48Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 48px;
+  line-height: $line-height-tight;
+}
+
+@mixin T56Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 56px;
+  line-height: $line-height-tight;
+}
+
+@mixin T64Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 64px;
+  line-height: $line-height-tight;
+}
+
+@mixin T72Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 72px;
+  line-height: $line-height-tight;
+}
+
+@mixin T80Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 80px;
+  line-height: $line-height-tight;
+}
+
+@mixin T88Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 88px;
+  line-height: $line-height-tight;
+}
+
+@mixin T96Soft {
+  @include fontDefaults;
+
+  font-weight: $font-weight-soft;
+  font-size: 96px;
+  line-height: $line-height-tight;
+}
+
+@mixin T12Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 12px;
+  line-height: $line-height-tight;
+}
+
+@mixin T16Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 16px;
+  line-height: $line-height-tight;
+}
+
+@mixin T20Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 20px;
+  line-height: $line-height-tight;
+}
+
+@mixin T24Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 24px;
+  line-height: $line-height-tight;
+}
+
+@mixin T32Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 32px;
+  line-height: $line-height-tight;
+}
+
+@mixin T40Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 40px;
+  line-height: $line-height-tight;
+}
+
+@mixin T48Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 48px;
+  line-height: $line-height-tight;
+}
+
+@mixin T56Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 56px;
+  line-height: $line-height-tight;
+}
+
+@mixin T64Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 64px;
+  line-height: $line-height-tight;
+}
+
+@mixin T72Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 72px;
+  line-height: $line-height-tight;
+}
+
+@mixin T80Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 80px;
+  line-height: $line-height-tight;
+}
+
+@mixin T88Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 88px;
+  line-height: $line-height-tight;
+}
+
+@mixin T96Strong {
+  @include fontDefaults;
+
+  font-weight: $font-weight-strong;
+  font-size: 96px;
+  line-height: $line-height-tight;
+}
