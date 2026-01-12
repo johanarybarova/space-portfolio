@@ -95,15 +95,6 @@ const ThreeScene = () => {
     scene.add(particlesMesh)
     scene.add(particlesMesh2)
 
-    // Mouse Interaction
-    let mouseX = 0
-    let mouseY = 0
-
-    const animateParticles = (event: MouseEvent) => {
-      mouseX = event.clientX
-      mouseY = event.clientY
-    }
-
     // Resize
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight
@@ -112,7 +103,6 @@ const ThreeScene = () => {
     }
 
     window.addEventListener('resize', handleResize)
-    document.addEventListener('mousemove', animateParticles)
 
     const clock = new THREE.Clock()
 
@@ -125,10 +115,6 @@ const ThreeScene = () => {
       particlesMesh2.rotation.y = elapsedTime * 0.03
       particlesMesh2.rotation.x = -elapsedTime * 0.01
 
-      // Mouse Parallax (subtle)
-      // camera.position.x += (mouseX * 0.001 - camera.position.x) * 0.05
-      // camera.position.y += (-mouseY * 0.001 - camera.position.y) * 0.05
-
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
     }
@@ -137,7 +123,6 @@ const ThreeScene = () => {
 
     return () => {
       window.removeEventListener('resize', handleResize)
-      document.removeEventListener('mousemove', animateParticles)
     }
   }, [])
 
