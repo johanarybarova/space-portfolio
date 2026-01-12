@@ -1,4 +1,3 @@
-import { Flex } from '../Flex/Flex'
 import { Typography } from '../Typography/Typography'
 import styles from './Footer.module.scss'
 

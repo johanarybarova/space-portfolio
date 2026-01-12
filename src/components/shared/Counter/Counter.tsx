@@ -14,11 +14,13 @@ export const Counter = ({ value, className, duration = 2.5 }: CounterProps) => {
 
   useEffect(() => {
     const element = ref.current
-    if (!element) return
+    if (!element) {
+      return
+    }
 
     // Extract number and suffix inside effect to handle hydration gracefully if needed,
     // though doing it in render is fine too.
-    const match = value.match(/([\d\.]+)(.*)/)
+    const match = value.match(/([\d.]+)(.*)/)
     // Handle floats if needed, though stats usually int here. "100" -> 100.
     const numberPart = match ? parseFloat(match[1]) : 0
     const suffix = match ? match[2] : value
@@ -26,16 +28,17 @@ export const Counter = ({ value, className, duration = 2.5 }: CounterProps) => {
     // Check if it's actually a number to animate
     if (isNaN(numberPart)) {
       element.textContent = value
+
       return
     }
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      entries => {
         if (entries[0].isIntersecting) {
           const proxy = { val: 0 }
           gsap.to(proxy, {
             val: numberPart,
-            duration: duration,
+            duration,
             ease: 'power3.out', // Slightly less extreme than power4
             onUpdate: () => {
               if (ref.current) {
@@ -60,8 +63,6 @@ export const Counter = ({ value, className, duration = 2.5 }: CounterProps) => {
 
   // Initial render: 0 + suffix? Or just 0?
   // Let's start with 0 + suffix to keep layout width somewhat consistent if suffix is long
-  const match = value.match(/([\d\.]+)(.*)/)
-  const suffix = match ? match[2] : ''
 
   return (
     <span
@@ -73,4 +74,3 @@ export const Counter = ({ value, className, duration = 2.5 }: CounterProps) => {
     </span>
   )
 }
-
