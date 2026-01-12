@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { Flex } from '@/src/components/shared/Flex/Flex'
 import { Number } from '@/src/components/shared/Number/Number'
 import { Section } from '@/src/components/shared/Section/Section'

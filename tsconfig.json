@@ -44,7 +44,7 @@
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "allowJs": true,
     "checkJs": false,
     "downlevelIteration": true,
@@ -82,7 +82,8 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.mjs",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
