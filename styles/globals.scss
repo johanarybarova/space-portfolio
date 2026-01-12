@@ -1,3 +1,26 @@
 @import 'style-clean', 'base';
 
 @import 'breakpoints', 'colors', 'z-index', 'fonts', 'sizes';
+
+html {
+  scroll-behavior: smooth;
+}
+
+.three-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.grain-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/grain.png');
+  opacity: 0.05;
+  pointer-events: none;
+}

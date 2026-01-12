@@ -1,60 +1,156 @@
 @import '@/styles/breakpoints';
 @import '@/styles/fonts';
+@import '@/styles/glass';
 @import '@/styles/z-index';
 
-.navigation {
+.header {
   position: fixed;
   top: 0;
-  z-index: $z-index-header;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  background: transparent;
+  transition: all 0.3s ease;
+
+  &.scrolled,
+  &.menuOpen {
+    @include glass-card;
+
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+  }
+}
+
+.navigation {
+  position: relative;
+  z-index: 10;
   padding: var(--vertical-m) var(--horizontal-m);
+  transition: padding 0.3s ease;
 
   @include min768 {
-    padding: var(--vertical-m) var(--horizontal-lg);
-    background: unset;
+    padding: var(--vertical-lg) var(--horizontal-4xl);
   }
 
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: $z-index-base;
-    width: 100%;
-    height: 250%;
-    background: linear-gradient(to top, transparent 0%, var(--black-hole) 75%);
-    content: '';
-
-    @include min768 {
-      content: none;
-    }
+  // Compact padding on scroll
+  .scrolled & {
+    padding-top: var(--vertical-m);
+    padding-bottom: var(--vertical-m);
   }
 }
 
-.navContent {
-  z-index: $z-index-header;
+.logoLink {
+  z-index: 100; // Above mobile menu
+  text-decoration: none;
 }
 
-.iconWrapper {
-  position: relative;
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
+.logo {
+  color: #fff;
+  letter-spacing: 0.05em;
 }
 
-.icon {
-  display: block;
+.menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-xl);
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-  transform-origin: center center; // ✅ spin around its center
-  animation: spin 16s linear infinite;
+  height: 100vh;
+  padding: 80px 20px;
+  background: rgb(0 0 0 / 95%);
+  backdrop-filter: blur(20px);
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 50;
+
+  @include min768 {
+    position: static;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: transparent;
+    backdrop-filter: none;
+    transform: none;
+    transition: none;
+    gap: var(--gap-lg);
+  }
+
+  &.mobileMenuVisible {
+    transform: translateY(0);
+  }
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+.burger {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  @include min768 {
+    display: none;
+  }
+}
+
+.burgerLine {
+  width: 24px;
+  height: 2px;
+  background-color: var(--cyan-atom);
+  transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  border-radius: 0; // Sharp edges for a "tech" look
+
+  &:nth-child(2) {
+    width: 18px; // Smaller middle line for "tech" look
   }
 
-  to {
-    transform: rotate(360deg);
+  .burgerActive & {
+    width: 24px;
+    background-color: #fff;
   }
+
+  .burgerActive &:first-child {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .burgerActive &:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  .burgerActive &:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+.link {
+  position: relative;
+  color: var(--text-cyan);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  @include min768 {
+    // Desktop hover underline or something?
+  }
+
+  &:hover {
+    color: #fff;
+  }
+}
+
+.cyanText {
+  color: var(--cyan-atom);
 }

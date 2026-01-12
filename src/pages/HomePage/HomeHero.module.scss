@@ -1,17 +1,160 @@
 @import '@/styles/breakpoints';
 
 .section {
-  height: 100vh;
-
-  // background: linear-gradient(to top, var(--black-hole), var(--cyan-atom));
-  // background: linear-gradient(to top, var(--black-hole), var(--black-hole));
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 var(--horizontal-m);
+  overflow: hidden; // Contain the glow
+  text-align: center;
 
   @include min768 {
-    width: 50%;
+    padding: 0 var(--horizontal-4xl);
   }
 }
 
-.headline,
-.subheadline {
-  // color: var(--black-hole);
+// The dramatic blue glow on the right/background
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(
+    circle,
+    rgb(0 222 255 / 15%) 0%,
+    rgb(0 0 0 / 0%) 70%
+  );
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  filter: blur(60px);
+  animation:
+    pulseGlow 4s ease-in-out infinite alternate,
+    fadeIn 2s ease forwards;
+  pointer-events: none;
+}
+
+.contentWrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+// Freelance Status
+.statusText {
+  margin-bottom: var(--vertical-lg);
+  color: var(--cyan-atom);
+  font-family: var(--font-space-grotesk);
+  letter-spacing: 0.2em; // Wide spacing for that [ ] look
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.2s;
+}
+
+// Headline
+.headline {
+  margin: 0;
+  color: var(--star-light);
+
+  // color: var(--cyan-atom);
+  font-weight: 500; // slightly bolder feel
+  font-size: 40px;
+  line-height: 1.1;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.4s;
+
+  @include min768 {
+    font-size: 80px;
+    letter-spacing: -0.02em;
+  }
+
+  @include min1024 {
+    font-size: 100px;
+  }
+}
+
+.gradientText {
+  display: inline-block; // helps with gradient clip
+  background: linear-gradient(90deg, #fff 0%, var(--cyan-atom) 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Description
+.description {
+  max-width: 680px;
+  margin-top: var(--vertical-lg);
+  color: rgb(255 255 255 / 70%);
+  line-height: 1.6;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.6s;
+}
+
+// Buttons
+.buttonRow {
+  flex-direction: column;
+  margin-top: var(--vertical-2xl);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.8s;
+
+  @include min768 {
+    flex-direction: row;
+  }
+}
+
+.arrow {
+  transition: transform 0.2s ease;
+}
+
+// Animations
+@keyframes fadeUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
 }

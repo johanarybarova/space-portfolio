@@ -5,15 +5,20 @@
   @include T64Soft;
 
   display: inline-block;
+  min-width: 120px; // Ensure consistent spacing between number and content
   height: fit-content;
 
   @include min768 {
-    @include T96Soft;
+    @include T80Soft;
   }
 
   @include min1024 {
     position: sticky;
-    top: var(--vertical-5xl);
-    margin-top: var(--vertical-xs);
+    top: var(--vertical-10xl);
+    margin-top: var(--vertical-2xl);
   }
+}
+
+.cyanText {
+  color: var(--cyan-atom);
 }

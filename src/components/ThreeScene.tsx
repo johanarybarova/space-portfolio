@@ -1,10 +1,7 @@
 'use client'
 
 import * as THREE from 'three'
-// import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { useEffect, useRef } from 'react'
-// import gsap from 'gsap'
-// Uncomment below if you want OrbitControls
 
 const ThreeScene = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -17,151 +14,130 @@ const ThreeScene = () => {
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(
       75,
-      window?.innerWidth / window?.innerHeight,
+      window.innerWidth / window.innerHeight,
       0.1,
       1000
     )
 
-    // Orbit Controls
-    // const controls = new OrbitControls(camera, canvasRef.current)
-
-    const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current })
-    renderer.outputColorSpace = THREE.SRGBColorSpace
-    renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1
-
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvasRef.current,
+      alpha: true,
+    })
     renderer.setPixelRatio(window.devicePixelRatio)
     renderer.setSize(window.innerWidth, window.innerHeight)
     camera.position.setZ(30)
-    camera.position.setX(-3)
-    // Torus
-    const torus = new THREE.Mesh(
-      new THREE.TorusGeometry(10, 3, 16, 20),
-      new THREE.MeshBasicMaterial({
-        color: 0x00deff, // primary color
-        wireframe: true,
-      })
-    )
-    // scene.add(torus)
 
-    // Lights
-    const pointLight = new THREE.PointLight(0xffffff)
-    pointLight.position.set(5, 5, 5)
-    // const lightHelper1 = new THREE.PointLightHelper(pointLight)
+    // Generate Diamond Texture
+    const getStarTexture = () => {
+      const canvas = document.createElement('canvas')
+      canvas.width = 32
+      canvas.height = 32
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        return null
+      }
 
-    const pointLight2 = new THREE.PointLight(0xffffff)
-    pointLight2.position.set(-5, -5, -5)
-    // const lightHelper2 = new THREE.PointLightHelper(pointLight2)
+      ctx.fillStyle = '#ffffff'
+      ctx.beginPath()
+      ctx.moveTo(16, 0)
+      ctx.lineTo(32, 16)
+      ctx.lineTo(16, 32)
+      ctx.lineTo(0, 16)
+      ctx.closePath()
+      ctx.fill()
 
-    // grid helper
-    // const gridHelper = new THREE.GridHelper(100, 100, 0x000000, 0x000000)
-    // scene.add(lightHelper1, lightHelper2, gridHelper)
-
-    const ambientLight = new THREE.AmbientLight(0xffffff)
-    scene.add(pointLight, pointLight2, ambientLight)
-
-    // Background
-    // const spaceTexture = new THREE.TextureLoader().load('/images/space.jpg')
-    // spaceTexture.colorSpace = THREE.SRGBColorSpace
-    // scene.background = spaceTexture
-
-    // Avatar
-    const imageTexture = new THREE.TextureLoader().load('/images/lukas.png')
-    imageTexture.colorSpace = THREE.SRGBColorSpace
-    const image = new THREE.Mesh(
-      new THREE.BoxGeometry(3, 3, 3),
-      new THREE.MeshBasicMaterial({ map: imageTexture })
-    )
-    image.position.set(2, 0, -5)
-    scene.add(image)
-
-    // // square
-    // const square = new THREE.Mesh(
-    //   new THREE.BoxGeometry(4, 4, 4),
-    //   new THREE.MeshBasicMaterial({
-    //     color: 0x00deff, // primary color
-    //     wireframe: true,
-    //   })
-    // )
-    // square.position.set(2, 0, -5)
-    // scene.add(square)
-
-    // Moon
-    const moonTexture = new THREE.TextureLoader().load('/images/moon.jpg')
-    moonTexture.colorSpace = THREE.SRGBColorSpace
-    const normalTexture = new THREE.TextureLoader().load('/images/normal.jpg')
-    normalTexture.colorSpace = THREE.SRGBColorSpace
-    const moon = new THREE.Mesh(
-      new THREE.SphereGeometry(3, 50, 50),
-      new THREE.MeshStandardMaterial({
-        map: moonTexture,
-        normalMap: normalTexture,
-      })
-    )
-    moon.position.set(-10, 0, 30)
-    scene.add(moon)
-
-    // Stars
-    const addStar = () => {
-      const star = new THREE.Mesh(
-        new THREE.SphereGeometry(0.05, 10, 10),
-        new THREE.MeshStandardMaterial({ color: 0xfffffff })
-      )
-      const [x, y, z] = Array(3)
-        .fill(0)
-        .map(() => THREE.MathUtils.randFloatSpread(100))
-      star.position.set(x, y, z)
-      scene.add(star)
+      return new THREE.CanvasTexture(canvas)
     }
-    Array(1000).fill(0).forEach(addStar)
 
-    // Scroll animation
-    const moveCamera = () => {
-      const t = document.body.getBoundingClientRect().top
-      moon.rotation.x += 0.005
-      moon.rotation.y += 0.0075
-      moon.rotation.z += 0.005
-      image.rotation.y += 0.01
-      image.rotation.z += 0.01
-      camera.position.z = t * -0.01
-      camera.position.x = t * -0.0002
-      camera.rotation.y = t * -0.0002
+    const starTexture = getStarTexture()
+
+    // Particles (Stars)
+    const particlesGeometry = new THREE.BufferGeometry()
+    const particlesCount = 2000 // More stars
+
+    const posArray = new Float32Array(particlesCount * 3)
+
+    for (let i = 0; i < particlesCount * 3; i++) {
+      // Spread stars nicely
+      posArray[i] = (Math.random() - 0.5) * 100 // Scale up the spread
     }
-    document.body.onscroll = moveCamera
 
-    moveCamera()
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
+
+    // Material
+    const material = new THREE.PointsMaterial({
+      size: 0.2,
+      color: 0x00deff, // Cyan accent
+      map: starTexture || undefined,
+      transparent: true,
+      opacity: 0.8,
+      alphaTest: 0.01,
+    })
+
+    // White stars as well for depth
+    const particlesGeometry2 = new THREE.BufferGeometry()
+    const posArray2 = new Float32Array(particlesCount * 3)
+    for (let i = 0; i < particlesCount * 3; i++) {
+      posArray2[i] = (Math.random() - 0.5) * 120
+    }
+    particlesGeometry2.setAttribute('position', new THREE.BufferAttribute(posArray2, 3))
+    const material2 = new THREE.PointsMaterial({
+      size: 0.1,
+      color: 0xffffff,
+      map: starTexture || undefined,
+      transparent: true,
+      opacity: 0.8,
+      alphaTest: 0.01,
+    })
+
+    const particlesMesh = new THREE.Points(particlesGeometry, material)
+    const particlesMesh2 = new THREE.Points(particlesGeometry2, material2)
+    scene.add(particlesMesh)
+    scene.add(particlesMesh2)
+
+    // Mouse Interaction
+    let mouseX = 0
+    let mouseY = 0
+
+    const animateParticles = (event: MouseEvent) => {
+      mouseX = event.clientX
+      mouseY = event.clientY
+    }
+
+    // Resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight
+      camera.updateProjectionMatrix()
+      renderer.setSize(window.innerWidth, window.innerHeight)
+    }
+
+    window.addEventListener('resize', handleResize)
+    document.addEventListener('mousemove', animateParticles)
 
     const clock = new THREE.Clock()
 
-    // GSAP
-    // gsap.to(jo.position, {
-    //   y: 2,
-    //   duration: 1,
-    //   ease: 'linear',
-    // })
-    // gsap.to(jo.position, {
-    //   y: 0,
-    //   duration: 1,
-    //   delay: 1,
-    //   ease: 'linear',
-    // })
-
-    // Animate loop
     const animate = () => {
       const elapsedTime = clock.getElapsedTime()
 
-      requestAnimationFrame(animate)
-      torus.rotation.x = 0.1 * elapsedTime
-      torus.rotation.y = 0.5 * elapsedTime
-      torus.rotation.z = 0.1 * elapsedTime
-      moon.rotation.x = 0.3 * elapsedTime
+      // Rotate entire system slowly
+      particlesMesh.rotation.y = elapsedTime * 0.05
+      particlesMesh.rotation.x = elapsedTime * 0.01 // gentle tilt
+      particlesMesh2.rotation.y = elapsedTime * 0.03
+      particlesMesh2.rotation.x = -elapsedTime * 0.01
+
+      // Mouse Parallax (subtle)
+      // camera.position.x += (mouseX * 0.001 - camera.position.x) * 0.05
+      // camera.position.y += (-mouseY * 0.001 - camera.position.y) * 0.05
+
       renderer.render(scene, camera)
+      requestAnimationFrame(animate)
     }
+
     animate()
 
-    // Clean-up (optional, useful for route changes)
     return () => {
-      document.body.onscroll = null
+      window.removeEventListener('resize', handleResize)
+      document.removeEventListener('mousemove', animateParticles)
     }
   }, [])
 

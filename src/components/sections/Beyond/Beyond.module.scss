@@ -1,42 +1,223 @@
 @import '@/styles/breakpoints';
 @import '@/styles/fonts';
+@import '@/styles/glass';
 
-.textContentWrapper {
-  margin-bottom: 600px;
-  padding: var(--vertical-lg) var(--horizontal-s);
+@mixin tech-corners-4 {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) top right /
+      12px 2px no-repeat,
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) top right /
+      2px 12px no-repeat,
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      12px 2px no-repeat,
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      2px 12px no-repeat,
+    rgb(255 255 255 / 1%);
+  border-radius: 2px;
 
-  // Use background color if ThreeScene object are clashing with the text
-  // background-color: var(--black-hole);;
-  border-top: 1px solid var(--cyan-atom);
-
-  @include min768 {
-    padding: var(--vertical-lg) var(--horizontal-lg);
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid var(--cyan-atom);
+    border-left: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
   }
 
-  @include min1024 {
-    margin-left: var(--gap-6xl);
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--cyan-atom);
+    border-bottom: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+}
+
+.textContentWrapper {
+  @include glass-card;
+  @include tech-corners-4;
+
+  display: flex;
+
+  // margin-bottom: 200px;
+  padding: var(--vertical-2xl) var(--horizontal-xl);
+  border-top: none;
+  border-radius: 2px;
+
+  @include min768 {
+    padding: var(--vertical-3xl) var(--horizontal-2xl);
   }
 
   @include min1440 {
     flex-direction: row;
     max-width: 1024px;
+    min-height: 400px;
   }
 }
 
+.contentLeft {
+  display: flex;
+  flex: 1;
+}
+
+.headerGroup {
+  width: 300px;
+  margin-right: var(--horizontal-4xl);
+}
+
 .bottomContent {
-  flex-grow: 1;
-  gap: var(--gap-9xl);
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.textContent {
+  gap: 12px;
+
+  @include min1024 {
+    gap: 16px;
+  }
+}
+
+.text {
+  display: block;
+  color: rgb(255 255 255 / 70%);
+}
+
+.mentorButton {
+  align-self: flex-end;
+  margin-top: 24px;
+}
+
+.reactAtom {
+  position: absolute;
+  right: 700px;
+  bottom: 0;
+  display: none;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -24px;
+
+  @include min1024 {
+    justify-content: center;
+  }
 
   @include min1440 {
-    margin-left: var(--horizontal-9xl);
+    display: block;
+  }
+
+  // Add a glow behind the new shape
+  &::before {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #00deff33 0%, transparent 100%);
+    filter: blur(40px);
+    content: '';
+  }
+}
+
+// Geometric Composition
+.geometricComposition {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  height: 320px;
+}
+
+// Nucleus
+.circle1 {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: var(--cyan-atom);
+  border-radius: 50%;
+  box-shadow: 0 0 30px var(--cyan-atom);
+}
+
+// Orbits
+.circle2 {
+  position: absolute;
+  width: 200px;
+  height: 60px; // Oval shape
+  border: 2px solid var(--cyan-atom);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--cyan-atom);
+  animation: rotateAtom1 16s linear infinite;
+}
+
+.circle3 {
+  position: absolute;
+  width: 200px;
+  height: 60px; // Oval shape
+  border: 2px solid var(--cyan-atom);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--cyan-atom);
+  animation: rotateAtom2 16s linear infinite;
+}
+
+.line1 {
+  position: absolute;
+  width: 200px;
+  height: 60px; // Oval shape
+  border: 2px solid var(--cyan-atom);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--cyan-atom);
+  animation: rotateAtom3 16s linear infinite;
+}
+
+.line2 {
+  display: none; // Unused for atom
+}
+
+@keyframes rotateAtom1 {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateAtom2 {
+  0% {
+    transform: rotate(60deg);
+  }
+
+  100% {
+    transform: rotate(420deg);
+  }
+}
+
+@keyframes rotateAtom3 {
+  0% {
+    transform: rotate(-60deg);
+  }
+
+  100% {
+    transform: rotate(300deg);
   }
 }
 
 .container {
+  position: relative;
   gap: var(--gap-m);
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 var(--horizontal-m);
 
   @include min1024 {
     flex-direction: row;

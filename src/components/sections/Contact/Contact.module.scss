@@ -1,0 +1,219 @@
+@import '@/styles/breakpoints';
+@import '@/styles/fonts';
+@import '@/styles/glass';
+
+@mixin tech-corners-4 {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) top right /
+      12px 2px no-repeat,
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) top right /
+      2px 12px no-repeat,
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      12px 2px no-repeat,
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      2px 12px no-repeat,
+    rgb(255 255 255 / 1%);
+  border-radius: 2px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid var(--cyan-atom);
+    border-left: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--cyan-atom);
+    border-bottom: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+}
+
+.textContentWrapper {
+  @include glass-card;
+  @include tech-corners-4;
+
+  align-items: center; // Center everything horizontally
+  margin-bottom: 100px;
+  padding: var(--vertical-2xl) var(--horizontal-xl);
+  border-top: none;
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px); // Subtle lift on hover
+  }
+
+  @include min768 {
+    padding: var(--vertical-3xl) var(--horizontal-2xl);
+  }
+
+  // No margin left override needed since we want it centered or auto
+  @include min1440 {
+    max-width: 1024px;
+  }
+}
+
+.headerGroup {
+  flex-shrink: 0;
+  margin-bottom: var(--vertical-xl);
+  text-align: center;
+}
+
+.bottomContent {
+  flex-grow: 1;
+  align-items: center; // Center children
+  width: 100%;
+}
+
+.introGroup {
+  margin-bottom: var(--vertical-2xl);
+  text-align: center;
+}
+
+.highlightText {
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.subText {
+  color: rgb(255 255 255 / 60%);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include min768 {
+    flex-direction: row;
+    gap: 32px;
+  }
+}
+
+// Custom Input Styling
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input,
+.textarea {
+  display: block;
+  width: 100%;
+  padding: 12px 0; // Slightly reduced padding
+  color: #fff;
+  font-size: 16px; // Reduced font size (was 18px)
+  font-family: var(--font-space-grotesk);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 0;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    outline: none;
+  }
+
+  // Floating Label Logic
+  &:focus + .label,
+  &:not(:placeholder-shown) + .label {
+    top: -20px; // Adjusted for smaller font
+    color: var(--cyan-atom);
+    font-size: 12px;
+    letter-spacing: 0.15em;
+  }
+}
+
+.textarea {
+  min-height: 100px; // Slightly smaller height
+  resize: vertical;
+}
+
+.label {
+  position: absolute;
+  top: 12px; // Adjusted alignment
+  left: 0;
+  color: rgb(255 255 255 / 40%);
+  font-size: 16px; // Reduced font size (was 18px)
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+// Remove default outline glow from focusLine
+.focusLine {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--cyan-atom);
+  box-shadow: 0 0 10px var(--cyan-atom);
+  transform: translateX(-50%);
+  transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+
+  .input:focus ~ &,
+  .textarea:focus ~ & {
+    width: 100%;
+  }
+}
+
+.submitButton {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.btnText {
+  position: relative;
+  z-index: 1;
+}
+
+.btnIcon {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s ease;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+  justify-content: center; // Ensure container aligns items center if it has room
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--horizontal-m);
+
+  @include min1024 {
+    flex-direction: row;
+    gap: auto;
+  }
+}

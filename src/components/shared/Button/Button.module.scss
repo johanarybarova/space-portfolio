@@ -1,0 +1,118 @@
+@import '@/styles/breakpoints';
+
+.button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-space-grotesk);
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+// Sizing
+.md {
+  padding: 8px 20px;
+  font-size: 14px;
+
+  @include min768 {
+    padding: 12px 24px;
+    font-size: 16px;
+  }
+}
+
+.lg {
+  padding: 12px 24px;
+  font-size: 14px;
+
+  @include min768 {
+    padding: 16px 32px;
+    font-size: 16px;
+  }
+}
+
+// Variants
+.solid {
+  color: #000;
+  font-weight: 500;
+  background: #fff;
+  border: none;
+
+  &:hover {
+    box-shadow: 0 5px 20px rgb(255 255 255 / 30%);
+    transform: translateY(-2px);
+  }
+}
+
+.spark {
+  color: var(--cyan-atom);
+  background: transparent;
+  border: 1px solid rgb(255 255 255 / 20%);
+
+  &:hover {
+    background: rgb(0 0 0 / 10%);
+
+    .sparkContainer {
+      opacity: 1;
+    }
+  }
+}
+
+.sparkContainer {
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  padding: 1px;
+  border-radius: 100px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+
+  // Mask to cut the center
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      transparent 5%,
+      var(--cyan-atom) 15%,
+      transparent 25%,
+      transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    animation: rotateAtom 2s linear infinite;
+    content: '';
+  }
+}
+
+.buttonText {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rotateAtom {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

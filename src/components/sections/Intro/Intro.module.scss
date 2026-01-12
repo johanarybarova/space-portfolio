@@ -1,41 +1,415 @@
 @import '@/styles/breakpoints';
+@import '@/styles/glass';
+
+// Mixin for the sharp corner decor (All 4 corners)
+@mixin tech-corners {
+  position: relative;
+  overflow: hidden; // Ensure content doesn't spill
+  border-radius: 2px; // Sharp but not jagged
+
+  // Top Left
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid var(--cyan-atom);
+    border-left: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+
+  // Bottom Right
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--cyan-atom);
+    border-bottom: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+}
+
+// Mixin for the opposite corners (Top Right & Bottom Left)
+// We need a way to add 2 more pseudo elements.
+// Since CSS only gives us ::before and ::after, we have a few options:
+// 1. Use a child element for the other 2 corners.
+// 2. Use a sophisticated background-image gradient.
+// 3. Since we control the HTML, we can assume there's an inner wrapper or just add it.
+// BUT, for simplicity in SCSS without changing HTML structure everywhere:
+// Let's use `background-image` linear-gradients to draw the other corners.
+
+@mixin tech-corners-all {
+  @include tech-corners; // Gets TL and BR
+
+  // Add TR and BL using background gradients
+  background-image: 
+    // Top Right Corner
+    linear-gradient(to right, var(--cyan-atom) 2px, transparent 2px),
+    linear-gradient(to bottom, var(--cyan-atom) 2px, transparent 2px),
+    // Bottom Left Corner
+    linear-gradient(to left, var(--cyan-atom) 2px, transparent 2px),
+    linear-gradient(to top, var(--cyan-atom) 2px, transparent 2px);
+
+  // Correction: Linear gradients for corners are:
+  // TR: Top border (right side), Right border (top side)
+  // BL: Bottom border (left side), Left border (bottom side)
+
+  background-image:
+    // Top Right
+    linear-gradient(to left, var(--cyan-atom) 12px, transparent 12px),
+    // Top border at right
+    linear-gradient(to bottom, var(--cyan-atom) 12px, transparent 12px),
+    // Right border at top
+    // Bottom Left
+    linear-gradient(to right, var(--cyan-atom) 12px, transparent 12px),
+    // Bottom border at left
+    linear-gradient(
+        to top,
+        var(--cyan-atom) 12px,
+        transparent 12px
+      ); // Left border at bottom
+
+  background-repeat: no-repeat; // BL horizontal
+  background-position:
+    top 0 right 0,
+    // TR Top
+    top 0 right 0,
+    // TR Right
+    bottom 0 left 0,
+    // BL Bottom
+    bottom 0 left 0; // BL Left
+
+  background-size: 12px 12px;
+  background-size:
+    12px 2px,
+    // TR Top Width
+    2px 12px,
+    // TR Right Height
+    12px 2px,
+    // BL Bottom Width
+    2px 12px; // BL Left Height
+}
+
+// Actually, relying on background-image for borders can be finicky with glass backgrounds.
+// A cleaner way if we can't add markup is to use `box-shadow` or `clip-path` but that's complex.
+// Let's stick to the mixin reusing ::before/::after for 2 corners, and maybe the user accepts 2 corners as "tech style".
+// IF the user explicitly wants ALL 4:
+// We can use a nested element.
+// OR: We can use the background gradient method on the *container* and pseudo elements for the others.
+
+// Let's try the background gradient approach again, carefully.
+@mixin tech-corners-4 {
+  position: relative;
+  overflow: hidden;
+
+  // TR & BL via Background Gradients
+  // We need to ensure this doesn't overwrite the glass background color.
+  // The glass background is usually set via background-color.
+  // So we use multiple backgrounds.
+  // Note: glass-card sets `background: rgb(...)` which is a shorthand. We need to be careful.
+
+  background: 
+    // Top Right Horizontal
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) top right /
+      12px 2px no-repeat,
+    // Top Right Vertical
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) top right /
+      2px 12px no-repeat,
+    // Bottom Left Horizontal
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      12px 2px no-repeat,
+    // Bottom Left Vertical
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      2px 12px no-repeat,
+    // The actual glass background color (re-declared here to persist)
+    rgb(255 255 255 / 1%);
+  border-radius: 2px;
+
+  // TL & BR via Pseudo-elements (Sharpest)
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid var(--cyan-atom);
+    border-left: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--cyan-atom);
+    border-bottom: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+}
 
 .textContentWrapper {
-  margin-bottom: 600px;
-  padding: var(--vertical-lg) var(--horizontal-s);
-
-  // background-color: var(--black-hole);;
-  border-top: 1px solid var(--cyan-atom);
+  // Remove glass-card from here, as we are splitting it up
+  margin-bottom: 200px;
+  padding: 0;
+  border-top: none;
 
   @include min768 {
-    padding: var(--vertical-lg) var(--horizontal-lg);
-
-    // background-color: var(--black-hole);;
+    padding: 0;
   }
 
   @include min1024 {
-    margin-left: var(--gap-6xl);
+    flex-direction: row;
+    align-items: flex-start;
+
+    // margin-left: var(--gap-6xl);
   }
 
   @include min1440 {
-    flex-direction: row;
     max-width: 1024px;
   }
 }
 
 .bottomContent {
-  gap: var(--gap-9xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-2xl);
   width: 100%;
 
-  @include min1440 {
-    margin-left: var(--horizontal-9xl);
+  @include min1024 {
+    flex-direction: row;
+    gap: var(--gap-4xl);
+    align-items: stretch; // Ensure equal height
   }
+}
+
+// Left Panel
+.leftPanel {
+  @include glass-card;
+
+  position: relative;
+  display: flex;
+  flex: 1.5; // Takes up more space
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 500px;
+  padding: var(--vertical-2xl) var(--horizontal-xl);
+  overflow: hidden;
+
+  // BL Corner (Gradient) + Background
+  background:
+    // Bottom Left Horizontal
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      12px 2px no-repeat,
+    // Bottom Left Vertical
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      2px 12px no-repeat,
+    // Base Glass
+    rgb(255 255 255 / 1%);
+  border-radius: 2px; // Override glass radius
+
+  // TL Corner
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid var(--cyan-atom);
+    border-left: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+
+  @include min768 {
+    padding: var(--vertical-3xl) var(--horizontal-2xl);
+  }
+}
+
+.splitLayout {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+  margin-bottom: 200px;
+
+  @include min1024 {
+    flex-direction: row;
+  }
+
+  @include min1440 {
+    max-width: 1024px;
+  }
+
+  // margin-left: var(--gap-6xl);
+}
+
+.bioWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--vertical-m);
+  margin-bottom: var(--vertical-xl);
+}
+
+.leadText {
+  color: rgb(255 255 255 / 70%);
+  line-height: 1.5;
+}
+
+.secondaryText {
+  color: rgb(255 255 255 / 70%);
+  line-height: 1.6;
+}
+
+.techPills {
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.pill {
+  padding: 8px 20px;
+  color: rgb(255 255 255 / 70%);
+  font-size: 14px;
+  background: rgb(255 255 255 / 5%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 100px;
+}
+
+// Right Panel
+.rightPanel {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.statCard {
+  @include glass-card;
+
+  position: relative;
+  display: flex;
+  flex: 1;
+
+  // Let's do a flex row with icon on right or left. Ref image 2 shows distinct cards.
+  // Let's make them clean flex blocks.
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 160px;
+  padding: 24px 32px;
+  overflow: hidden;
+  background: rgb(255 255 255 / 1%); // Default background
+  border-radius: 2px; // Override glass radius
+  transition: transform 0.3s ease;
+
+  // Top Card: TR Corner
+  &:first-child {
+    background:
+      // Top Right Horizontal
+      linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) top right /
+        12px 2px no-repeat,
+      // Top Right Vertical
+      linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) top right /
+        2px 12px no-repeat,
+      // Base Glass
+      rgb(255 255 255 / 1%);
+  }
+
+  // Bottom Card: BR Corner
+  &:last-child {
+    @include min1024 {
+      grid-column: span 2;
+    }
+
+    &::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid var(--cyan-atom);
+      border-bottom: 2px solid var(--cyan-atom);
+      content: '';
+      pointer-events: none;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 0 30px rgb(0 222 255 / 10%);
+    transform: translateY(-5px);
+  }
+}
+
+.iconWrapper {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: rgb(255 255 255 / 50%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 50%;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+
+  // Make parent hover effect propagate
+  .statCard:hover & {
+    color: var(--cyan-atom);
+    border-color: var(--cyan-atom);
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+
+  // Ensure stroke width feels "Space Grotesk" - handled in SVG directly, but can override here if needed
+}
+
+.statNumber {
+  margin-top: auto;
+  margin-bottom: 16px;
+  color: var(--cyan-atom);
+  background: linear-gradient(
+    180deg,
+    var(--cyan-atom) 0%,
+    rgb(0 222 255 / 70%) 100%
+  );
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: text-shadow 0.3s ease;
+}
+
+.statLabel {
+  color: rgb(255 255 255 / 40%);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 .container {
   gap: var(--gap-m);
   max-width: 1440px;
   margin: 0 auto;
+  padding: 0 var(--horizontal-m);
 
   @include min1024 {
     flex-direction: row;

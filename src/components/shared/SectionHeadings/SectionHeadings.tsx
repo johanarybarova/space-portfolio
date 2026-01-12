@@ -10,10 +10,10 @@ export const SectionHeadings = ({
   subheadline: string
 }) => (
   <Flex flexCol gap='var(--gap-m)' className={styles.sectionHeadings}>
-    <Typography as='h2' variant='T32Strong'>
+    <Typography as='h2' variant='T32Strong' className={styles.headline}>
       {headline}
     </Typography>
-    <Typography as='p' variant='T16Soft'>
+    <Typography as='p' variant='T12Strong' className={styles.subheadline}>
       {subheadline}
     </Typography>
   </Flex>

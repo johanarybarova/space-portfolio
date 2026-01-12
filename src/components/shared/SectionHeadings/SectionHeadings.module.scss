@@ -1,5 +1,20 @@
 .sectionHeadings {
   width: 100%;
   max-width: 280px;
-  margin-bottom: var(--vertical-lg);
+  margin-bottom: var(--vertical-xl);
+}
+
+.headline {
+  color: var(--cyan-atom);
+}
+
+.subheadline {
+  color: rgb(255 255 255 / 40%);
+  font-weight: 500;
+  font-size: 12px;
+  font-family: var(--font-space-grotesk);
+  font-style: normal;
+  line-height: 110%;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }

@@ -1,0 +1,155 @@
+@import '@/styles/breakpoints';
+@import '@/styles/fonts';
+@import '@/styles/glass';
+
+.footer {
+  position: relative;
+  width: 100%;
+  margin-top: 60px;
+  padding: 0;
+  overflow: hidden;
+}
+
+// Minimalist footer: No gradient glow
+.horizonGlow {
+  display: none;
+}
+
+.content {
+  @include glass-card;
+
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: 40px var(--horizontal-m);
+  background: rgb(255 255 255 / 1%);
+  border: none;
+  border-top: 1px solid rgb(255 255 255 / 5%);
+  border-radius: 0;
+  // Restore glass blur for minimalist feel
+  backdrop-filter: blur(10px);
+
+  @include min768 {
+    padding: 60px var(--horizontal-4xl) 32px;
+  }
+}
+
+.topRow {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  @include min768 {
+    flex-direction: row;
+    gap: 0;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.colTitle {
+  margin-bottom: 4px;
+  color: var(--cyan-atom);
+  letter-spacing: 0.1em;
+  opacity: 0.8;
+}
+
+.linksList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+
+.link {
+  position: relative;
+  width: fit-content;
+  color: rgb(255 255 255 / 60%);
+  font-size: 14px;
+  font-family: var(--font-space-grotesk);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  &::after {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--cyan-atom);
+    content: '';
+    transition: width 0.3s ease;
+  }
+
+  &:hover {
+    color: #fff;
+
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.socialRow {
+  display: flex;
+  gap: 12px;
+}
+
+.socialPill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: rgb(255 255 255 / 60%);
+  background: rgb(255 255 255 / 3%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  // Keep glass effect for pills
+  backdrop-filter: blur(10px);
+
+  &:hover {
+    color: var(--cyan-atom);
+    background: rgb(255 255 255 / 10%);
+    border-color: var(--cyan-atom);
+    box-shadow: 0 0 20px rgb(0 222 255 / 20%);
+    transform: translateY(-2px);
+  }
+}
+
+.socialIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.bottomRow {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 5%);
+
+  @include min768 {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.copyright,
+.madeWith {
+  color: rgb(255 255 255 / 30%);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+

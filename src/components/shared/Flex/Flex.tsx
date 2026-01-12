@@ -16,7 +16,9 @@ type FlexProps = {
   itemsEnd?: boolean
   fullWidth?: boolean
   gap?: string
+  style?: CSSProperties
   dataTestId?: string
+  id?: string
   className?: string
 }
 
@@ -34,15 +36,18 @@ export const Flex = ({
   itemsEnd,
   fullWidth,
   gap,
+  style,
   dataTestId,
+  id,
   className,
 }: FlexProps) => {
   const Component = as
 
   return (
     <Component
+      id={id}
       data-testid={dataTestId}
-      style={{ gap } as CSSProperties}
+      style={{ gap, ...style } as CSSProperties}
       className={cx(
         {
           [styles.flexCol]: flexCol,

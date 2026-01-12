@@ -2,8 +2,8 @@ import { Flex } from '../Flex/Flex'
 import { ReactNode } from 'react'
 import styles from './Section.module.scss'
 
-export const Section = ({ children }: { children: ReactNode }) => (
-  <Flex flexCol justifyCenter itemsCenter as='section' className={styles.section}>
+export const Section = ({ children, id }: { children: ReactNode; id?: string }) => (
+  <Flex flexCol justifyCenter itemsCenter as='section' className={styles.section} id={id}>
     {children}
   </Flex>
 )
