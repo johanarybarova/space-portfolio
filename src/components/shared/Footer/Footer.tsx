@@ -38,6 +38,7 @@ export const Footer = () => (
           </Typography>
           <div className={styles.socialRow}>
             <a href='mailto:globus303@gmail.com' className={styles.socialPill} aria-label='Email'>
+              <span className={styles.sparkContainer} aria-hidden='true' />
               <svg
                 viewBox='0 0 24 24'
                 fill='none'
@@ -71,6 +72,7 @@ export const Footer = () => (
               className={styles.socialPill}
               aria-label='LinkedIn'
             >
+              <span className={styles.sparkContainer} aria-hidden='true' />
               <svg
                 viewBox='0 0 24 24'
                 fill='none'
@@ -112,6 +114,7 @@ export const Footer = () => (
               className={styles.socialPill}
               aria-label='GitHub'
             >
+              <span className={styles.sparkContainer} aria-hidden='true' />
               <svg
                 viewBox='0 0 24 24'
                 fill='none'
@@ -147,10 +150,10 @@ export const Footer = () => (
 
       <div className={styles.bottomRow}>
         <div className={styles.copyright}>
-          <span>© {new Date().getFullYear()} Lucas Cizek.</span>
+          <span>© {new Date().getFullYear()} Lucas Cizek</span>
         </div>
         <div className={styles.madeWith}>
-          <span>Made with Next.js, React & Stardust</span>
+          <span>Made with Next.js, React… and a sprinkle of stardust.</span>
         </div>
       </div>
     </div>

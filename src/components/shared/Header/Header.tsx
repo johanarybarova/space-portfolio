@@ -92,7 +92,7 @@ export const Header = () => {
             size='md'
             onClick={() => setIsMenuOpen(false)}
           >
-            Get in touch
+            Get in Touch
           </Button>
         </Flex>
       </Flex>

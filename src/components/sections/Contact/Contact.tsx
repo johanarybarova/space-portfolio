@@ -78,7 +78,11 @@ export const Contact = () => {
       <Flex flexCol fullWidth className={styles.container}>
         <Flex flexCol fullWidth className={styles.textContentWrapper}>
           <div className={styles.headerGroup}>
-            <SectionHeadings headline='Contact' subheadline='Start a Conversation' />
+            <SectionHeadings
+              headline='Let’s create, together'
+              subheadline='Start a Conversation'
+              className={styles.sectionHeadings}
+            />
           </div>
 
           <Flex flexCol fullWidth className={styles.bottomContent}>

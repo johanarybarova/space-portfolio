@@ -29,6 +29,7 @@
   border: none;
   border-top: 1px solid rgb(255 255 255 / 5%);
   border-radius: 0;
+
   // Restore glass blur for minimalist feel
   backdrop-filter: blur(10px);
 
@@ -58,7 +59,7 @@
 
 .colTitle {
   margin-bottom: 4px;
-  color: var(--cyan-atom);
+  color: #fff6;
   letter-spacing: 0.1em;
   opacity: 0.8;
 }
@@ -81,20 +82,30 @@
 
   &::after {
     position: absolute;
-    bottom: -2px;
-    left: 0;
+    bottom: -6px; // Increased gap from -4px
+    left: 50%;
     width: 0;
     height: 1px;
-    background: var(--cyan-atom);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan-atom),
+      transparent
+    );
+
+    // box-shadow: 0 0 4px var(--cyan-atom); // Removed glow
+    transition:
+      width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      left 0.5s cubic-bezier(0.22, 1, 0.36, 1);
     content: '';
-    transition: width 0.3s ease;
   }
 
   &:hover {
     color: #fff;
 
     &::after {
-      width: 100%;
+      left: -10%; // Standard full width
+      width: 120%; // Standard full width
     }
   }
 }
@@ -105,6 +116,7 @@
 }
 
 .socialPill {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -114,20 +126,71 @@
   background: rgb(255 255 255 / 3%);
   border: 1px solid rgb(255 255 255 / 10%);
   border-radius: 50%;
-  transition: all 0.3s ease;
+
   // Keep glass effect for pills
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 
   &:hover {
     color: var(--cyan-atom);
-    background: rgb(255 255 255 / 10%);
-    border-color: var(--cyan-atom);
-    box-shadow: 0 0 20px rgb(0 222 255 / 20%);
-    transform: translateY(-2px);
+    background: rgb(0 0 0 / 10%);
+
+    // Border is handled by spark container mask logic mostly, but we can keep subtle border or let spark take over
+    // Removing border color change to let spark be the hero
+    border-color: rgb(255 255 255 / 10%);
+
+    .sparkContainer {
+      opacity: 1;
+    }
+  }
+}
+
+.sparkContainer {
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  padding: 1px;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+
+  // Mask to cut the center
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      transparent 5%,
+      var(--cyan-atom) 15%,
+      var(--cyan-atom) 50%,
+      transparent 60%,
+      transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    animation: rotateAtom 2s linear infinite;
+    content: '';
   }
 }
 
 .socialIcon {
+  position: relative;
+  z-index: 1;
   width: 18px;
   height: 18px;
 }
@@ -153,3 +216,12 @@
   letter-spacing: 0.02em;
 }
 
+@keyframes rotateAtom {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

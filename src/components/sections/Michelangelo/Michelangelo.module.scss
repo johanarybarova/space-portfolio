@@ -63,12 +63,28 @@
   align-items: center;
   justify-content: center;
   transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: filter 0.3s ease;
+
+  &:hover {
+    .folderIcon {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 20px rgb(0 222 255 / 50%));
+    }
+
+    .folderLabel {
+      text-shadow: 0 0 15px rgb(0 222 255 / 60%);
+    }
+  }
 }
 
 .folderIcon {
   width: auto;
   height: auto;
   filter: drop-shadow(0 0 10px rgb(0 222 255 / 30%));
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
 }
 
 .folderLabel {
@@ -77,6 +93,7 @@
   font-size: 14px;
   letter-spacing: 2px;
   text-shadow: 0 0 5px rgb(255 255 255 / 50%);
+  transition: text-shadow 0.3s ease;
 }
 
 @keyframes pulseColor {
