@@ -42,7 +42,7 @@ export const HomeHero = () => (
       {/* Buttons */}
       <Flex gap='var(--gap-m)' className={styles.buttonRow}>
         <Button variant='solid'>
-          <Flex itemsCenter gap='8px' as='span'>
+          <Flex itemsCenter gap='8px' as='div'>
             <GithubIcon />
             GitHub
           </Flex>
