@@ -32,7 +32,7 @@
 .introText {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--gap-m);
   margin-bottom: var(--vertical-xl);
 }
 

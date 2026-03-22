@@ -102,7 +102,7 @@
   z-index: $z-index-elevated;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--dimension-6);
   align-items: flex-end;
   justify-content: center;
   width: 32px;

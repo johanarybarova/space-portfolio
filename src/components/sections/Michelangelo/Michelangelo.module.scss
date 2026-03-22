@@ -24,7 +24,7 @@
   z-index: $z-index-elevated;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--gap-xs);
   align-items: center;
   justify-content: center;
   transform: translate(-50%, -50%);
@@ -46,7 +46,7 @@
 .folderReveal {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--gap-xs);
   align-items: center;
   justify-content: center;
   opacity: 0;

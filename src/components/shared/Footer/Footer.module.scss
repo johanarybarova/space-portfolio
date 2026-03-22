@@ -5,7 +5,7 @@
 .footer {
   position: relative;
   width: 100%;
-  margin-top: 60px;
+  margin-top: var(--dimension-60);
   padding: 0;
   overflow: hidden;
 }
@@ -20,22 +20,22 @@
   position: relative;
   z-index: 1;
   max-width: 100%;
-  padding: 40px var(--horizontal-m);
+  padding: var(--vertical-2xl) var(--horizontal-m);
   border: none;
   border-top: 1px solid rgb(255 255 255 / 5%);
   border-radius: 0;
   @include glass-frosted-like-footer;
 
   @include min768 {
-    padding: 60px var(--horizontal-4xl) 32px;
+    padding: var(--dimension-60) var(--horizontal-4xl) var(--vertical-xl);
   }
 }
 
 .topRow {
   flex-direction: column;
-  gap: 40px;
+  gap: var(--gap-2xl);
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: var(--vertical-2xl);
 
   @include min768 {
     flex-direction: row;
@@ -44,7 +44,7 @@
 }
 
 .colTitle {
-  margin-bottom: 4px;
+  margin-bottom: var(--vertical-xs);
   color: #fff6;
   letter-spacing: 0.1em;
   opacity: 0.8;
@@ -164,8 +164,8 @@
 }
 
 .bottomRow {
-  gap: 16px;
-  padding-top: 24px;
+  gap: var(--gap-m);
+  padding-top: var(--vertical-lg);
   border-top: 1px solid rgb(255 255 255 / 5%);
 
   @include min768 {

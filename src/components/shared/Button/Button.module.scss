@@ -7,7 +7,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 16px 32px;
+  padding: var(--vertical-m) var(--horizontal-xl);
   border-radius: 100px;
   cursor: pointer;
   transition: all 0.3s ease;

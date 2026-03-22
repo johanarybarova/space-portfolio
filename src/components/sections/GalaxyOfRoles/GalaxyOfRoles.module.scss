@@ -55,7 +55,7 @@
   z-index: $z-index-elevated;
   width: 6px;
   height: 6px;
-  margin-top: 10px;
+  margin-top: var(--dimension-10);
   margin-bottom: -1px;
   background: var(--cyan-atom);
   border: none;
@@ -156,12 +156,12 @@
 
 .itemHeader {
   flex-wrap: wrap;
-  gap: 16px;
+  gap: var(--gap-m);
   margin-bottom: var(--vertical-m);
 }
 
 .company {
-  margin-bottom: 4px;
+  margin-bottom: var(--vertical-xs);
   color: var(--star-light);
 }
 
@@ -170,7 +170,7 @@
 }
 
 .dateBadge {
-  padding: 6px 12px;
+  padding: var(--dimension-6) var(--dimension-12);
   color: var(--star-light-80);
   white-space: nowrap;
   background: var(--star-light-05);
@@ -184,9 +184,9 @@
 
 .bulletItem {
   display: flex;
-  gap: 8px;
+  gap: var(--gap-s);
   align-items: flex-start;
-  margin-bottom: 4px;
+  margin-bottom: var(--vertical-xs);
 }
 
 .bulletDot {

@@ -28,10 +28,10 @@
 }
 
 .textContent {
-  gap: 12px;
+  gap: var(--dimension-12);
 
   @include min1024 {
-    gap: 16px;
+    gap: var(--gap-m);
   }
 }
 

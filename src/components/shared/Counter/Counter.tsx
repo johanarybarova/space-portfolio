@@ -56,6 +56,7 @@ export const Counter = ({ value, className, duration = 2.5 }: CounterProps) => {
 
     if (!parsedValue.isNumeric) {
       element.textContent = parsedValue.raw
+
       return
     }
 
@@ -65,6 +66,7 @@ export const Counter = ({ value, className, duration = 2.5 }: CounterProps) => {
       if (parsedValue.decimals > 0) {
         return state.current.toFixed(parsedValue.decimals)
       }
+
       return String(Math.round(state.current))
     }
     const updateText = () => {

@@ -41,11 +41,11 @@
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: var(--gap-2xl);
 
   @include min768 {
     flex-direction: row;
-    gap: 32px;
+    gap: var(--gap-xl);
   }
 }
 

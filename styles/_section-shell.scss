@@ -81,7 +81,7 @@
 }
 
 @mixin section-pill {
-  padding: 8px 20px;
+  padding: var(--vertical-s) var(--dimension-20);
   color: var(--star-light-70);
   background: var(--star-light-05);
   border: 1px solid var(--star-light-10);
