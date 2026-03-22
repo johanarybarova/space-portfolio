@@ -1,22 +1,11 @@
 @import '@/styles/breakpoints';
 @import '@/styles/fonts';
+@import '@/styles/glass';
+@import '@/styles/section-shell';
+@import '@/styles/z-index';
 
 .textContentWrapper {
-  margin-bottom: 600px;
-  padding: var(--vertical-lg) var(--horizontal-s);
-
-  // background-color: var(--black-hole);;
-  border-top: 1px solid var(--cyan-atom);
-
-  @include min768 {
-    padding: var(--vertical-lg) var(--horizontal-lg);
-
-    // background-color: var(--black-hole);;
-  }
-
-  @include min1024 {
-    margin-left: var(--gap-6xl);
-  }
+  @include section-shell-panel;
 
   @include min1440 {
     flex-direction: row;
@@ -24,64 +13,56 @@
   }
 }
 
-.bottomContent {
-  flex-grow: 1;
-  gap: var(--gap-9xl);
-  width: 100%;
+.headerGroup {
+  flex-shrink: 0;
 
   @include min1440 {
-    margin-left: var(--horizontal-9xl);
+    position: sticky;
+    top: 100px;
+    width: 300px;
+    margin-right: var(--horizontal-4xl);
+  }
+}
+
+.bottomContent {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.introText {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-m);
+  margin-bottom: var(--vertical-xl);
+}
+
+.paragraph {
+  color: var(--star-light-70);
+}
+
+.pillsWrapper {
+  position: relative;
+  z-index: $z-index-elevated;
+  justify-content: flex-start;
+}
+
+.pill {
+  @include section-pill;
+
+  position: relative;
+  cursor: default;
+  transition: all 0.3s ease;
+}
+
+.pillText {
+  color: inherit;
+  letter-spacing: 0.05em;
+
+  &.colored {
+    color: inherit;
   }
 }
 
 .container {
-  gap: var(--gap-m);
-  max-width: 1440px;
-  margin: 0 auto;
-
-  @include min1024 {
-    flex-direction: row;
-    gap: auto;
-    justify-content: space-between;
-  }
-}
-
-.pillsWrapper {
-  gap: var(--gap-s);
-
-  @include min1024 {
-    gap: var(--gap-m);
-  }
-}
-
-.pill {
-  padding: var(--vertical-s) var(--horizontal-m);
-  border: 1px solid var(--cyan-atom);
-  border-radius: 50px;
-
-  @include min1024 {
-    padding: var(--vertical-m) var(--horizontal-m);
-  }
-
-  &.colored {
-    background-color: var(--cyan-atom);
-  }
-}
-
-.pillText {
-  @include T12Soft;
-
-  @include min1024 {
-    @include T16Soft;
-  }
-
-  &.colored {
-    @include T16Strong;
-
-    color: var(--black-hole);
-
-    @include min1024 {
-      @include T16Strong;
-    }
-  }
+  @include section-layout-container;
 }

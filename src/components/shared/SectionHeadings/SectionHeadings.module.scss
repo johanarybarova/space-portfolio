@@ -1,5 +1,15 @@
 .sectionHeadings {
   width: 100%;
   max-width: 280px;
-  margin-bottom: var(--vertical-lg);
+  margin-bottom: var(--vertical-xl);
+}
+
+.headline {
+  color: var(--cyan-atom);
+}
+
+.subheadline {
+  color: var(--star-light-40);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }

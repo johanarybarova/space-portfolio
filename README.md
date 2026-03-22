@@ -1,31 +1,60 @@
-# Space Portfolio
+# 🚀 Space Portfolio 🩵🖤
 
-Personal portfolio built with **Next.js 15**, **React 19**, and **TypeScript**. Animations with **GSAP** and **Three.js**. Styled using **SCSS Modules**.
+Design Engineering, creative prototyping, and art direction concept for a personal portfolio.  
 
-## Requirements
-- Node.js ≥ 20
-- Yarn ≥ 1.22.19
+## 🌌 Overview 🖤
 
-## Setup
-Install dependencies and run dev server:
+- 🪐 Built for immersive front-end storytelling and visual interaction.
+- 🌠 Combines motion, 3D, and modern UI architecture in a portfolio format.
+- 🛰️ Focuses on expressive aesthetics with scalable engineering foundations.
 
-```bash
-yarn install
-yarn dev
-```
+## ⚛️ Tech Stack 🩵
 
-Open http://localhost:3000
+- ⚛️ **React 19** — component-driven user interfaces.
+- ▲ **Next.js 15** — runtime, routing, and production workflows.
+- 🟦 **TypeScript** — typed, maintainable development.
+- 🌌 **Three.js** — 3D visuals and scene rendering.
+- 🎞️ **GSAP** — high-quality motion and timeline animation.
+- 🎨 **Sass (SCSS)** — modular styling system.
+- 🧩 Supporting packages: `classnames`, `react-hook-form`, `react-aria-live`.
 
-## Scripts
-- `yarn dev` – start development server
-- `yarn build` – build for production
-- `yarn start` – run production build
-- `yarn lint` – run linters
+## 🧰 Requirements ⚫
 
-## Tech Stack
-- Next.js
-- React
-- TypeScript
-- GSAP
-- Three.js
-- SCSS Modules
+- 🟢 Node.js `>=20.0.0`
+- 🧶 Yarn `>=1.22.19`
+
+## 🛸 Quick Start 🩵
+
+- Install dependencies: `yarn install`
+- Run development server: `yarn dev`
+- Open your browser at: `http://localhost:3000`
+
+## 📜 Available Scripts 🌠
+
+- `yarn dev` — start development server.
+- `yarn build` — build for production.
+- `yarn start` — run production build.
+- `yarn lint` — run lint checks via Next.js.
+- `yarn generate:michelangelo-particles` — generate particle data using `scripts/generate-michelangelo-particles.mjs`.
+
+## 🧪 Development Tooling 🔵
+
+- ✅ ESLint + Next.js lint config for JS/TS quality.
+- ✅ Prettier for consistent formatting.
+- ✅ Stylelint for SCSS linting standards.
+- ✅ Husky + lint-staged pre-commit checks:
+  - `*.{js,jsx,ts,tsx}` → `eslint --fix`
+  - `*.scss` → `stylelint --fix`
+
+## 🛰️ Project Positioning 🩵🖤
+
+- 🌌 **Discipline:** Design Engineering
+- 🧪 **Mode:** Creative Prototyping
+- 🎬 **Direction:** Art direction-led interaction design
+- 👤 **Context:** Personal portfolio concept (not repository owner’s personal portfolio)
+
+## 🌙 Notes ⚫🩵
+
+- 🔭 Keep visuals and interactions aligned with the space/universe aesthetic direction.
+- 🧠 Treat this repository as a creative-engineering prototype base for portfolio storytelling.
+- 💙 Favor clarity, modularity, and motion quality across future iterations.

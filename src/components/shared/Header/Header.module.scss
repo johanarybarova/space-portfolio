@@ -1,60 +1,186 @@
 @import '@/styles/breakpoints';
 @import '@/styles/fonts';
+@import '@/styles/glass';
 @import '@/styles/z-index';
 
-.navigation {
+.header {
   position: fixed;
   top: 0;
-  z-index: $z-index-header;
-  padding: var(--vertical-m) var(--horizontal-m);
+  left: 0;
+  z-index: $z-index-overlay;
+  width: 100%;
+  background: transparent;
+  transition: all 0.3s ease;
 
-  @include min768 {
-    padding: var(--vertical-m) var(--horizontal-lg);
-    background: unset;
+  &.scrolled,
+  &.menuOpen {
+    @include glass-card;
+
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-radius: 0;
+
+    @media (max-width: 767px) {
+      border: none;
+      @include glass-frosted-like-footer;
+    }
   }
 
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: $z-index-base;
-    width: 100%;
-    height: 250%;
-    background: linear-gradient(to top, transparent 0%, var(--black-hole) 75%);
-    content: '';
-
-    @include min768 {
-      content: none;
+  &.menuOpen {
+    @media (max-width: 767px) {
+      z-index: $z-index-menu;
     }
   }
 }
 
-.navContent {
-  z-index: $z-index-header;
-}
-
-.iconWrapper {
+.navigation {
   position: relative;
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  overflow: hidden;
+  z-index: $z-index-base;
+  padding: var(--vertical-m) var(--horizontal-m);
+  transition: padding 0.3s ease;
+
+  @include min768 {
+    padding: var(--vertical-lg) var(--horizontal-4xl);
+  }
+
+  .scrolled & {
+    padding-top: var(--vertical-m);
+    padding-bottom: var(--vertical-m);
+  }
 }
 
-.icon {
-  display: block;
+.logoLink {
+  z-index: $z-index-elevated;
+  text-decoration: none;
+}
+
+.logo {
+  color: var(--star-light);
+  letter-spacing: 0.05em;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-base;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-xl);
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
-  transform-origin: center center; // ✅ spin around its center
-  animation: spin 16s linear infinite;
+  height: 100vh;
+  height: 100svh;
+  padding: max(env(safe-area-inset-top), var(--vertical-2xl)) var(--horizontal-m)
+    calc(max(env(safe-area-inset-bottom), var(--vertical-xl)) + 14vh) var(--horizontal-m);
+  background: var(--black-hole);
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+
+  @include min768 {
+    position: static;
+    flex-direction: row;
+    gap: var(--gap-lg);
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: transparent;
+    transform: none;
+    backdrop-filter: none;
+    transition: none;
+  }
+
+  &.mobileMenuVisible {
+    transform: translateY(0);
+  }
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
+.burger {
+  position: relative;
+  z-index: $z-index-elevated;
+  display: flex;
+  flex-direction: column;
+  gap: var(--dimension-6);
+  align-items: flex-end;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  @include min768 {
+    display: none;
+  }
+}
+
+.burgerLine {
+  width: 24px;
+  height: 2px;
+  background-color: var(--cyan-atom);
+  border-radius: 0;
+  transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+
+  &:nth-child(2) {
+    width: 18px;
   }
 
-  to {
-    transform: rotate(360deg);
+  .burgerActive & {
+    width: 24px;
+    background-color: var(--star-light);
   }
+
+  .burgerActive &:first-child {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .burgerActive &:nth-child(2) {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+
+  .burgerActive &:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+}
+
+.link {
+  position: relative;
+  color: var(--text-cyan);
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &::after {
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--cyan-atom),
+      transparent
+    );
+    transition:
+      width 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      left 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    content: '';
+  }
+
+  &:hover {
+    color: var(--star-light);
+
+    &::after {
+      left: -10%;
+      width: 120%;
+    }
+  }
+}
+
+.cyanText {
+  color: var(--cyan-atom);
 }

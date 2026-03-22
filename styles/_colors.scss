@@ -2,4 +2,56 @@
   --cyan-atom: #00defe;
   --black-hole: #000;
   --star-light: #fff;
+  --star-dim: #97aaad;
+  --text-cyan: var(--cyan-atom);
+  --red-dwarf: #fe2000;
+  --star-light-01: rgb(255 255 255 / 1%);
+  --star-light-03: rgb(255 255 255 / 3%);
+  --star-light-05: rgb(255 255 255 / 5%);
+  --star-light-10: rgb(255 255 255 / 10%);
+  --star-light-15: rgb(255 255 255 / 15%);
+  --star-light-20: rgb(255 255 255 / 20%);
+  --star-light-30: rgb(255 255 255 / 30%);
+  --star-light-40: rgb(255 255 255 / 40%);
+  --star-light-50: rgb(255 255 255 / 50%);
+  --star-light-60: rgb(255 255 255 / 60%);
+  --star-light-70: rgb(255 255 255 / 70%);
+  --star-light-80: rgb(255 255 255 / 80%);
+  --black-hole-10: rgb(0 0 0 / 10%);
+  --black-hole-40: rgb(0 0 0 / 40%);
+  --black-hole-50: rgb(0 0 0 / 50%);
+  --black-hole-95: rgb(0 0 0 / 95%);
+  --cyan-atom-10: rgb(0 222 255 / 10%);
+  --cyan-atom-20: rgb(0 222 255 / 20%);
+  --cyan-atom-30: rgb(0 222 255 / 30%);
+  --cyan-atom-50: rgb(0 222 255 / 50%);
+  --cyan-atom-60: rgb(0 222 255 / 60%);
+  --cyan-atom-70: rgb(0 222 255 / 70%);
+}
+
+@supports not (color: rgb(255 255 255 / 1%)) {
+  :root {
+    --star-light-01: #ffffff03;
+    --star-light-03: #ffffff08;
+    --star-light-05: #ffffff0d;
+    --star-light-10: #ffffff1a;
+    --star-light-15: #ffffff26;
+    --star-light-20: #fff3;
+    --star-light-30: #ffffff4d;
+    --star-light-40: #fff6;
+    --star-light-50: #ffffff80;
+    --star-light-60: #fff9;
+    --star-light-70: #ffffffb3;
+    --star-light-80: #fffc;
+    --black-hole-10: #0000001a;
+    --black-hole-40: #0006;
+    --black-hole-50: #00000080;
+    --black-hole-95: #000000f2;
+    --cyan-atom-10: #00deff1a;
+    --cyan-atom-20: #00deff33;
+    --cyan-atom-30: #00deff4d;
+    --cyan-atom-50: #00deff80;
+    --cyan-atom-60: #00deff99;
+    --cyan-atom-70: #00deffb3;
+  }
 }

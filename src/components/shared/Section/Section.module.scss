@@ -2,12 +2,14 @@
 
 .section {
   width: 100%;
-  padding: var(--section-padding-small);
+  margin-top: var(--vertical-12xl);
+  padding: var(--section-padding-medium);
 
   --section-padding-small: 0 var(--horizontal-xs);
   --section-padding-large: 0 var(--horizontal-13xl);
 
   @include min768 {
+    margin-top: 200px;
     padding: var(--section-padding-large);
   }
 }

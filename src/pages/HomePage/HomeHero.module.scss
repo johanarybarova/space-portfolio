@@ -1,17 +1,106 @@
 @import '@/styles/breakpoints';
+@import '@/styles/fonts';
 
 .section {
-  height: 100vh;
-
-  // background: linear-gradient(to top, var(--black-hole), var(--cyan-atom));
-  // background: linear-gradient(to top, var(--black-hole), var(--black-hole));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--vertical-12xl) var(--horizontal-m) 0;
+  overflow: hidden;
+  text-align: center;
 
   @include min768 {
-    width: 50%;
+    padding: 0 var(--horizontal-4xl);
+  }
+
+  @include min1024 {
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: left;
   }
 }
 
-.headline,
-.subheadline {
-  // color: var(--black-hole);
+.contentWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+
+  @include min1024 {
+    align-items: flex-start;
+  }
+}
+
+.statusText {
+  margin-bottom: var(--vertical-lg);
+  color: var(--cyan-atom);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.2s;
+}
+
+.headline {
+  position: relative;
+  margin: 0;
+  color: transparent;
+  background: linear-gradient(
+    180deg,
+    var(--star-light) 0%,
+    rgb(255 255 255 / 70%) 100%
+  );
+  background-clip: text;
+  opacity: 0;
+  filter: drop-shadow(0 0 30px rgb(0 222 255 / 20%))
+    drop-shadow(0 4px 10px rgb(0 0 0 / 50%));
+  animation: fadeUp 1s ease forwards 0.4s;
+
+  @include min768 {
+    @include T56Strong;
+
+    letter-spacing: -0.02em;
+  }
+
+  @include min1024 {
+    @include T72Strong;
+  }
+}
+
+.description {
+  max-width: 680px;
+  margin-top: var(--vertical-lg);
+  color: rgb(255 255 255 / 70%);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.6s;
+}
+
+.buttonRow {
+  flex-direction: column;
+  margin-top: var(--vertical-xl);
+  opacity: 0;
+  animation: fadeUp 1s ease forwards 0.8s;
+
+  @include min768 {
+    flex-direction: row;
+    margin-top: var(--vertical-2xl);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
 }
