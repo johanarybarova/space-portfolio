@@ -72,7 +72,9 @@
   justify-content: center;
   width: 100%;
   height: 100vh;
-  padding: 80px 20px;
+  height: 100svh;
+  padding: max(env(safe-area-inset-top), var(--vertical-2xl)) var(--horizontal-m)
+    calc(max(env(safe-area-inset-bottom), var(--vertical-xl)) + 14vh) var(--horizontal-m);
   background: var(--black-hole);
   transform: translateY(-100%);
   transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);

@@ -10,6 +10,11 @@ canvas {
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
+
+body {
+  overscroll-behavior: none;
 }
 
 :root {
@@ -22,6 +27,7 @@ html {
 
   main {
     position: absolute;
+    overflow: hidden;
   }
 
   canvas {

@@ -42,7 +42,11 @@
 
 .mentorButton {
   align-self: flex-end;
-  margin-top: 24px;
+  margin-top: var(--vertical-xl);
+
+  @include min768 {
+    margin-top: var(--vertical-2xl);
+  }
 }
 
 .container {
