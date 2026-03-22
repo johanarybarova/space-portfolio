@@ -1,0 +1,94 @@
+@import '@/styles/breakpoints';
+@import '@/styles/z-index';
+
+.button {
+  position: relative;
+  z-index: $z-index-elevated;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 32px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.solid {
+  color: var(--black-hole);
+  background: var(--star-light);
+  border: none;
+
+  &:hover {
+    box-shadow: 0 5px 20px var(--star-light-30);
+  }
+}
+
+.spark {
+  color: var(--cyan-atom);
+  background: transparent;
+  border: 1px solid var(--star-light-20);
+
+  &:hover {
+    background: var(--black-hole-10);
+
+    .sparkContainer {
+      opacity: 1;
+    }
+  }
+}
+
+.sparkContainer {
+  position: absolute;
+  inset: -1px;
+  z-index: $z-index-base;
+  padding: 1px;
+  border-radius: 100px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask:
+    linear-gradient(var(--star-light) 0 0) content-box,
+    linear-gradient(var(--star-light) 0 0);
+  mask:
+    linear-gradient(var(--star-light) 0 0) content-box,
+    linear-gradient(var(--star-light) 0 0);
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  &::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0%,
+      transparent 5%,
+      var(--cyan-atom) 15%,
+      transparent 25%,
+      transparent 100%
+    );
+    transform: translate(-50%, -50%);
+    animation: rotateAtom 2s linear infinite;
+    content: '';
+  }
+}
+
+.buttonText {
+  position: relative;
+  z-index: $z-index-elevated;
+}
+
+@keyframes rotateAtom {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}

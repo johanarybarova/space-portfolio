@@ -1,24 +1,11 @@
 @import '@/styles/breakpoints';
 @import '@/styles/fonts';
+@import '@/styles/glass';
+@import '@/styles/section-shell';
 @import '@/styles/z-index';
 
 .textContentWrapper {
-  position: relative;
-  margin-bottom: 600px;
-  padding: var(--vertical-lg) var(--horizontal-s);
-
-  // background-color: var(--black-hole);;
-  border-top: 1px solid var(--cyan-atom);
-
-  @include min768 {
-    padding: var(--vertical-lg) var(--horizontal-lg);
-
-    // background-color: var(--black-hole);;
-  }
-
-  @include min1024 {
-    margin-left: var(--gap-6xl);
-  }
+  @include section-shell-panel;
 
   @include min1440 {
     flex-direction: row;
@@ -26,28 +13,192 @@
   }
 }
 
-.bottomContent {
-  flex-grow: 1;
-  gap: var(--gap-9xl);
-  width: 100%;
+.headerGroup {
+  flex-shrink: 0;
+  margin-bottom: var(--vertical-xl);
 
   @include min1440 {
-    margin-left: var(--horizontal-9xl);
+    position: sticky;
+    top: 100px;
+    width: 300px;
+    margin-right: var(--horizontal-4xl);
+    margin-bottom: 0;
   }
 }
 
-.container {
-  gap: var(--gap-m);
-  max-width: 1440px;
-  margin: 0 auto;
+.timeline {
+  flex-grow: 1;
+  width: 100%;
+}
 
-  @include min1024 {
-    flex-direction: row;
-    gap: auto;
-    justify-content: space-between;
+.timelineItem {
+  position: relative;
+  padding-bottom: var(--vertical-2xl);
+  padding-left: var(--horizontal-lg);
+
+  &:last-child {
+    padding-bottom: 0;
   }
+}
+
+.timelineConnector {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timelineNode {
+  z-index: $z-index-elevated;
+  width: 6px;
+  height: 6px;
+  margin-top: 10px;
+  margin-bottom: -1px;
+  background: var(--cyan-atom);
+  border: none;
+  box-shadow: none;
+  transform: rotate(45deg);
+  animation: diamondFlash 4s ease-in-out infinite;
+  animation-fill-mode: both;
+}
+
+.timelineItem:last-child .timelineNode {
+  position: relative;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 13px;
+  bottom: -13px;
+  left: 50%;
+  z-index: $z-index-base;
+  width: 1px;
+  overflow: hidden;
+  background: var(--star-light-10);
+  transform: translateX(-50%);
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--cyan-atom),
+      transparent
+    );
+    opacity: 0;
+    animation: beamFlow 4s linear infinite;
+    animation-delay: calc(var(--index) * 1s);
+    content: '';
+  }
+}
+
+.timelineItem:last-child .timelineLine {
+  background: linear-gradient(
+    to bottom,
+    var(--star-light-10) 0%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+}
+
+@keyframes beamFlow {
+  0% {
+    top: -50%;
+    opacity: 1;
+  }
+
+  25% {
+    top: 100%;
+    opacity: 1;
+  }
+
+  25.1% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes diamondFlash {
+  0% {
+    box-shadow: none;
+    transform: rotate(45deg) scale(1);
+  }
+
+  5% {
+    box-shadow: 0 0 15px var(--cyan-atom);
+    transform: rotate(45deg) scale(1.4);
+  }
+
+  30% {
+    box-shadow: none;
+    transform: rotate(45deg) scale(1);
+  }
+
+  100% {
+    box-shadow: none;
+    transform: rotate(45deg) scale(1);
+  }
+}
+
+.itemContent {
+  width: 100%;
+}
+
+.itemHeader {
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: var(--vertical-m);
+}
+
+.company {
+  margin-bottom: 4px;
+  color: var(--star-light);
 }
 
 .role {
-  @include T20Soft;
+  color: var(--cyan-atom);
+}
+
+.dateBadge {
+  padding: 6px 12px;
+  color: var(--star-light-80);
+  white-space: nowrap;
+  background: var(--star-light-05);
+  border: 1px solid var(--star-light-10);
+  border-radius: 100px;
+}
+
+.bullets {
+  padding-left: 0;
+}
+
+.bulletItem {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.bulletDot {
+  color: var(--cyan-atom);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.bulletText {
+  color: var(--star-light-70);
+}
+
+.container {
+  @include section-layout-container;
 }

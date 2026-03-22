@@ -1,0 +1,24 @@
+@mixin glass-card {
+  background: var(--star-light-01, rgb(255 255 255 / 1%));
+  border: 1px solid var(--star-light-05);
+  border-radius: 24px;
+  box-shadow: 0 20px 40px var(--black-hole-40);
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-backdrop-filter: blur(10px) brightness(0.4) saturate(1) contrast(1.2);
+  backdrop-filter: blur(10px) brightness(0.4) saturate(1) contrast(1.2);
+}
+
+// After glass-card: blur only on BOTH vendor and standard backdrop properties. Setting only
+// `backdrop-filter` leaves `-webkit-backdrop-filter` on the dark glass-card filter in Safari.
+@mixin glass-frosted-backdrop-like-footer {
+  // stylelint-disable-next-line property-no-vendor-prefix
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+// Flat panels (header bar, footer strip): same fill as Footer — do not use on tech-corner panels
+// or it replaces their layered background.
+@mixin glass-frosted-like-footer {
+  background: rgb(255 255 255 / 1%);
+  @include glass-frosted-backdrop-like-footer;
+}

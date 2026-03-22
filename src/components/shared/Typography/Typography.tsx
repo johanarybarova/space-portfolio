@@ -1,11 +1,9 @@
 import { CSSProperties, ReactNode } from 'react'
 import cx from 'classnames'
-import styles from '@/styles/fonts.module.scss'
-
-import typographyStyles from './Typography.module.scss'
+import styles from '../../../../styles/fonts.module.scss'
 
 type TypographyProps = {
-  as:
+  as?:
     | 'h1'
     | 'h2'
     | 'h3'
@@ -21,6 +19,7 @@ type TypographyProps = {
     | 'figcaption'
   variant?:
     | 'L12Soft'
+    | 'L14Soft'
     | 'L16Soft'
     | 'L20Soft'
     | 'L24Soft'
@@ -34,6 +33,7 @@ type TypographyProps = {
     | 'L88Soft'
     | 'L96Soft'
     | 'L12Strong'
+    | 'L14Strong'
     | 'L16Strong'
     | 'L20Strong'
     | 'L24Strong'
@@ -47,6 +47,7 @@ type TypographyProps = {
     | 'L88Strong'
     | 'L96Strong'
     | 'T12Soft'
+    | 'T14Soft'
     | 'T16Soft'
     | 'T20Soft'
     | 'T24Soft'
@@ -60,6 +61,7 @@ type TypographyProps = {
     | 'T88Soft'
     | 'T96Soft'
     | 'T12Strong'
+    | 'T14Strong'
     | 'T16Strong'
     | 'T20Strong'
     | 'T24Strong'
@@ -76,6 +78,7 @@ type TypographyProps = {
   children?: ReactNode
   style?: CSSProperties
   id?: string
+  'data-text'?: string
 }
 
 export const Typography = ({
@@ -85,14 +88,16 @@ export const Typography = ({
   children,
   style,
   id,
+  'data-text': dataText,
 }: TypographyProps) => {
   const Component = as
 
   return (
     <Component
       id={id}
-      className={cx(variant && styles[variant], typographyStyles.typography, className)}
+      className={cx(variant && styles[variant], className)}
       style={style}
+      data-text={dataText}
     >
       {children}
     </Component>

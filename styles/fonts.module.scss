@@ -4,6 +4,10 @@
   @include L12Soft;
 }
 
+.L14Soft {
+  @include L14Soft;
+}
+
 .L16Soft {
   @include L16Soft;
 }
@@ -54,6 +58,10 @@
 
 .L12Strong {
   @include L12Strong;
+}
+
+.L14Strong {
+  @include L14Strong;
 }
 
 .L16Strong {
@@ -108,6 +116,10 @@
   @include T12Soft;
 }
 
+.T14Soft {
+  @include T14Soft;
+}
+
 .T16Soft {
   @include T16Soft;
 }
@@ -158,6 +170,10 @@
 
 .T12Strong {
   @include T12Strong;
+}
+
+.T14Strong {
+  @include T14Strong;
 }
 
 .T16Strong {

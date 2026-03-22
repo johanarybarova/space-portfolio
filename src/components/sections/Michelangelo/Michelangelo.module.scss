@@ -1,0 +1,67 @@
+@import '@/styles/breakpoints';
+@import '@/styles/z-index';
+
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 50vh;
+  margin: 0;
+  overflow: visible;
+
+  @include min1024 {
+    min-height: 80vh;
+    margin-top: 880px;
+  }
+}
+
+.folderContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: $z-index-elevated;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: filter 0.3s ease;
+
+  &:hover {
+    .folderIcon {
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 20px var(--cyan-atom-50));
+    }
+
+    .folderLabel {
+      text-shadow: 0 0 15px var(--cyan-atom-60);
+    }
+  }
+}
+
+.folderReveal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+
+.folderIcon {
+  filter: drop-shadow(0 0 10px var(--cyan-atom-30));
+  transition:
+    filter 0.3s ease,
+    transform 0.3s ease;
+}
+
+.folderLabel {
+  color: var(--star-light);
+  letter-spacing: 2px;
+  text-shadow: 0 0 5px var(--star-light-50);
+  transition: text-shadow 0.3s ease;
+}

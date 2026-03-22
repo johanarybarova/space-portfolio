@@ -1,0 +1,89 @@
+@import '@/styles/breakpoints';
+@import '@/styles/glass';
+@import '@/styles/z-index';
+
+@mixin tech-corners-4 {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) top right /
+      12px 2px no-repeat,
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) top right /
+      2px 12px no-repeat,
+    linear-gradient(to right, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      12px 2px no-repeat,
+    linear-gradient(to bottom, var(--cyan-atom), var(--cyan-atom)) bottom left /
+      2px 12px no-repeat,
+    var(--section-panel-surface, var(--star-light-01, rgb(255 255 255 / 1%)));
+  border-radius: 2px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: $z-index-overlay;
+    width: 12px;
+    height: 12px;
+    border-top: 2px solid var(--cyan-atom);
+    border-left: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: $z-index-overlay;
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--cyan-atom);
+    border-bottom: 2px solid var(--cyan-atom);
+    content: '';
+    pointer-events: none;
+  }
+}
+
+@mixin section-shell-panel {
+  @include glass-card;
+  @include tech-corners-4;
+
+  --section-panel-surface: var(--star-light-01, rgb(255 255 255 / 1%));
+
+  padding: var(--vertical-2xl) var(--horizontal-xl);
+  border-radius: 2px;
+
+  @media (max-width: 767px) {
+    // Match Footer fill (1% white), not --star-light-05; overflow:hidden breaks iOS backdrop.
+    --section-panel-surface: rgb(255 255 255 / 1%);
+
+    overflow: visible;
+    border-color: rgb(255 255 255 / 5%);
+    @include glass-frosted-backdrop-like-footer;
+  }
+
+  @include min768 {
+    padding: var(--vertical-3xl) var(--horizontal-2xl);
+  }
+}
+
+@mixin section-layout-container {
+  gap: var(--gap-m);
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--horizontal-m);
+
+  @include min1024 {
+    flex-direction: row;
+    gap: auto;
+    justify-content: space-between;
+  }
+}
+
+@mixin section-pill {
+  padding: 8px 20px;
+  color: var(--star-light-70);
+  background: var(--star-light-05);
+  border: 1px solid var(--star-light-10);
+  border-radius: 100px;
+}
