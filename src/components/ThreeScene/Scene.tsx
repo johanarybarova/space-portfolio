@@ -13,6 +13,7 @@ import { createBackgroundStarLayers } from './stars/createBackgroundStarLayers'
 import { createBloomComposer } from './postprocessing/createBloomComposer'
 import { createHandParticleGeometry } from './michelangelo/createHandParticleGeometry'
 import { createHandParticleMaterial } from './michelangelo/createHandParticleMaterial'
+import { getHighlightScaleThreshold } from './michelangelo/handParticleScaleUtils'
 import { createSpiralGalaxy } from './galaxy/createSpiralGalaxy'
 import { createStarTexture } from './textures/createStarTexture'
 import { defaultGalaxyParameters } from './galaxy/galaxyParameters'
@@ -92,12 +93,14 @@ const ThreeScene = () => {
 
     const leftHandGeometry = createHandParticleGeometry(leftHandData)
     const rightHandGeometry = createHandParticleGeometry(rightHandData)
-    const leftHandMaterial = createHandParticleMaterial()
-    const rightHandMaterial = createHandParticleMaterial()
+    const leftHandMaterial = createHandParticleMaterial(starTexture)
+    const rightHandMaterial = createHandParticleMaterial(starTexture)
     leftHandMaterial.uniforms.uTravelDirection.value = -1
     leftHandMaterial.uniforms.uTravelVerticalDirection.value = -1
     rightHandMaterial.uniforms.uTravelDirection.value = 1
     rightHandMaterial.uniforms.uTravelVerticalDirection.value = 1
+    leftHandMaterial.uniforms.uHighlightScaleThreshold.value = getHighlightScaleThreshold(leftHandData.sizes)
+    rightHandMaterial.uniforms.uHighlightScaleThreshold.value = getHighlightScaleThreshold(rightHandData.sizes)
     const leftHandPoints = new THREE.Points(leftHandGeometry, leftHandMaterial)
     const rightHandPoints = new THREE.Points(rightHandGeometry, rightHandMaterial)
     const applyHandUniforms = (valueByMaterial: (material: THREE.ShaderMaterial) => void) => {

@@ -43,8 +43,6 @@
 }
 
 .headline {
-  @include L40Strong;
-
   position: relative;
   margin: 0;
   color: transparent;
@@ -60,13 +58,13 @@
   animation: fadeUp 1s ease forwards 0.4s;
 
   @include min768 {
-    @include L56Strong;
+    @include T56Strong;
 
     letter-spacing: -0.02em;
   }
 
   @include min1024 {
-    @include L72Strong;
+    @include T72Strong;
   }
 }
 

@@ -12,13 +12,13 @@ export const HomeHero = () => (
         [ AVAILABLE FOR FREELANCE ]
       </Typography>
 
-      <Typography as='h1' className={styles.headline}>
+      <Typography as='h1' variant='T40Strong' className={styles.headline}>
         Crafting immersive
         <br />
         digital universes
       </Typography>
 
-      <Typography as='p' variant='T20Soft' className={styles.description}>
+      <Typography as='p' variant='L20Soft' className={styles.description}>
         Senior React Frontend Developer focused on building high-performance, accessible, and
         visually stunning web experiences using modern technologies.
       </Typography>
