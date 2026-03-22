@@ -13,7 +13,8 @@
 
   @include min1024 {
     min-height: 80vh;
-    margin-top: 880px;
+    margin-top: var(--vertical-15xl);
+    margin-bottom: var(--vertical-15xl);
   }
 }
 
