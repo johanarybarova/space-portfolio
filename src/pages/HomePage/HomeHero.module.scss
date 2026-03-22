@@ -14,10 +14,8 @@
   }
 
   @include min1024 {
-    align-items: flex-start;
     justify-content: center;
     min-height: 100vh;
-    text-align: left;
   }
 }
 
@@ -27,10 +25,6 @@
   flex-direction: column;
   width: 100%;
   max-width: 1200px;
-
-  @include min1024 {
-    align-items: flex-start;
-  }
 }
 
 .statusText {
@@ -64,7 +58,7 @@
   }
 
   @include min1024 {
-    @include T72Strong;
+    @include T96Strong;
   }
 }
 
