@@ -1,4 +1,5 @@
 @import 'z-index';
+@import 'breakpoints';
 
 canvas {
   position: fixed;
@@ -28,6 +29,10 @@ body {
   main {
     position: absolute;
     overflow: hidden;
+
+    @include min768 {
+      overflow: visible;
+    }
   }
 
   canvas {
