@@ -11,9 +11,7 @@ import {
 } from './lib/viewport'
 import { createBackgroundStarLayers } from './stars/createBackgroundStarLayers'
 import { createBloomComposer } from './postprocessing/createBloomComposer'
-import { createHandParticleGeometry } from './michelangelo/createHandParticleGeometry'
-import { createHandParticleMaterial } from './michelangelo/createHandParticleMaterial'
-import { getHighlightScaleThreshold } from './michelangelo/handParticleScaleUtils'
+
 import { createSpiralGalaxy } from './galaxy/createSpiralGalaxy'
 import { createStarTexture } from './textures/createStarTexture'
 import { defaultGalaxyParameters } from './galaxy/galaxyParameters'
@@ -21,11 +19,12 @@ import { measureSectionOffsets } from './scroll/measureSectionOffsets'
 import { tickGalaxyUniforms } from './animation/tickGalaxyUniforms'
 import { tickStarLayers } from './animation/tickStarLayers'
 import { updateGalaxyScroll } from './animation/updateGalaxyScroll'
-import { updateHandLayout } from './michelangelo/updateHandLayout'
-import { updateMichelangeloScroll } from './animation/updateMichelangeloScroll'
+
 import { useEffect, useRef } from 'react'
-import michelangeloHandParticles from '@/src/data/michelangeloHandParticles.json'
-import type { HandParticleCloud, SectionOffsets } from './types'
+import type { SectionOffsets } from './types'
+
+/** Set to `true` to restore the spiral galaxy Points mesh in the hero. */
+const ENABLE_GALAXY = false
 
 const ThreeScene = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -76,86 +75,42 @@ const ThreeScene = () => {
     scene.add(particlesMesh)
     scene.add(particlesMesh2)
 
-    const {
-      geometry: galaxyGeometry,
-      material: galaxyMaterial,
-      points: galaxyPoints,
-    } = createSpiralGalaxy(renderer, defaultGalaxyParameters, points =>
-      applyGalaxyTransform(points, getGalaxyBaseTransform())
-    )
-    scene.add(galaxyPoints)
+    let galaxyGeometry: THREE.BufferGeometry | null = null
+    let galaxyMaterial: THREE.ShaderMaterial | null = null
+    let galaxyPoints: THREE.Points | null = null
 
-    const leftHandData = michelangeloHandParticles.left as HandParticleCloud
-    const rightHandData = michelangeloHandParticles.right as HandParticleCloud
-
-    const michelangeloGroup = new THREE.Group()
-    michelangeloGroup.quaternion.copy(camera.quaternion)
-
-    const leftHandGeometry = createHandParticleGeometry(leftHandData)
-    const rightHandGeometry = createHandParticleGeometry(rightHandData)
-    const leftHandMaterial = createHandParticleMaterial(starTexture)
-    const rightHandMaterial = createHandParticleMaterial(starTexture)
-    leftHandMaterial.uniforms.uTravelDirection.value = -1
-    leftHandMaterial.uniforms.uTravelVerticalDirection.value = -1
-    rightHandMaterial.uniforms.uTravelDirection.value = 1
-    rightHandMaterial.uniforms.uTravelVerticalDirection.value = 1
-    leftHandMaterial.uniforms.uHighlightScaleThreshold.value = getHighlightScaleThreshold(leftHandData.sizes)
-    rightHandMaterial.uniforms.uHighlightScaleThreshold.value = getHighlightScaleThreshold(rightHandData.sizes)
-    const leftHandPoints = new THREE.Points(leftHandGeometry, leftHandMaterial)
-    const rightHandPoints = new THREE.Points(rightHandGeometry, rightHandMaterial)
-    const applyHandUniforms = (valueByMaterial: (material: THREE.ShaderMaterial) => void) => {
-      valueByMaterial(leftHandMaterial)
-      valueByMaterial(rightHandMaterial)
+    if (ENABLE_GALAXY) {
+      const created = createSpiralGalaxy(renderer, defaultGalaxyParameters, points =>
+        applyGalaxyTransform(points, getGalaxyBaseTransform())
+      )
+      galaxyGeometry = created.geometry
+      galaxyMaterial = created.material
+      galaxyPoints = created.points
+      scene.add(galaxyPoints)
     }
-
-    michelangeloGroup.visible = false
-    michelangeloGroup.add(leftHandPoints)
-    michelangeloGroup.add(rightHandPoints)
-    scene.add(michelangeloGroup)
 
     let sectionOffsets: SectionOffsets = measureSectionOffsets()
     const refreshSectionOffsets = () => {
       sectionOffsets = measureSectionOffsets()
     }
 
-    let currentWorldPerPixel = 1
-
-    const runHandLayout = () => {
-      if (!isDesktopHeroViewport()) {
-        return
-      }
-      currentWorldPerPixel = updateHandLayout({
-        camera,
-        renderer,
-        leftHandData,
-        leftHandPoints,
-        rightHandPoints,
-        applyHandUniforms,
-        isMobileViewport,
-      })
-    }
-
     const { composer, renderPass, bloomPass } = createBloomComposer(renderer, scene, camera)
 
     /** Hide hero meshes and reset bloom/exposure when viewport is phone-sized. */
     const suppressDesktopHeroEffects = () => {
-      galaxyPoints.visible = false
-      michelangeloGroup.visible = false
-      michelangeloGroup.position.y = 0
-      applyHandUniforms(material => {
-        material.uniforms.uOpacity.value = 0
-        material.uniforms.uAssembleProgress.value = 0
-        material.uniforms.uTravelProgress.value = 0
-      })
+      if (galaxyPoints) {
+        galaxyPoints.visible = false
+      }
       renderer.toneMappingExposure = DEFAULT_TONE_MAPPING_EXPOSURE
       bloomPass.strength = DEFAULT_BLOOM_STRENGTH
     }
 
     const applyResponsiveHeroVisibility = () => {
       if (isDesktopHeroViewport()) {
-        galaxyPoints.visible = true
-        runHandLayout()
-        applyGalaxyTransform(galaxyPoints, getGalaxyBaseTransform())
+        if (galaxyPoints) {
+          galaxyPoints.visible = true
+          applyGalaxyTransform(galaxyPoints, getGalaxyBaseTransform())
+        }
       } else {
         suppressDesktopHeroEffects()
       }
@@ -214,23 +169,17 @@ const ThreeScene = () => {
       if (isDesktopHeroViewport()) {
         tickGalaxyUniforms(galaxyMaterial, delta)
 
-        updateGalaxyScroll({
-          galaxyPoints,
-          delta,
-          currentScrollY,
-          currentSpeedMultiplier,
-          michelangeloOffset: sectionOffsets.michelangeloOffset,
-          isMobileViewport,
-          getGalaxyBaseTransform,
-        })
-
-        updateMichelangeloScroll({
-          offsets: sectionOffsets,
-          currentScrollY,
-          worldPerPixel: currentWorldPerPixel,
-          michelangeloGroup,
-          applyHandUniforms,
-        })
+        if (galaxyPoints) {
+          updateGalaxyScroll({
+            galaxyPoints,
+            delta,
+            currentScrollY,
+            currentSpeedMultiplier,
+            heroOffset: sectionOffsets.heroOffset,
+            isMobileViewport,
+            getGalaxyBaseTransform,
+          })
+        }
 
         applyContactExplosion({
           contactOffset: sectionOffsets.contactOffset,
@@ -262,13 +211,8 @@ const ThreeScene = () => {
 
       scene.clear()
 
-      leftHandGeometry.dispose()
-      rightHandGeometry.dispose()
-      leftHandMaterial.dispose()
-      rightHandMaterial.dispose()
-
-      galaxyGeometry.dispose()
-      galaxyMaterial.dispose()
+      galaxyGeometry?.dispose()
+      galaxyMaterial?.dispose()
 
       particlesGeometry.dispose()
       material.dispose()

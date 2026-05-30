@@ -5,7 +5,7 @@ import { Footer } from '@/src/components/shared/Footer/Footer'
 import { GalaxyOfRoles } from '@/src/components/sections/GalaxyOfRoles/GalaxyOfRoles'
 import { HomeHero } from './HomeHero'
 import { Intro } from '@/src/components/sections/Intro/Intro'
-import { Michelangelo } from '@/src/components/sections/Michelangelo/Michelangelo'
+
 import { TechnicalCore } from '@/src/components/sections/TechnicalCore/TechnicalCore'
 import ThreeScene from '../../components/ThreeScene'
 
@@ -20,7 +20,6 @@ const HomePage = () => (
       <TechnicalCore />
       <Beyond />
       <Contact />
-      <Michelangelo />
       <Footer />
     </Flex>
   </>

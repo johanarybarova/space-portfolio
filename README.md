@@ -35,7 +35,7 @@ Design Engineering, creative prototyping, and art direction concept for a person
 - `yarn build` — build for production.
 - `yarn start` — run production build.
 - `yarn lint` — run lint checks via Next.js.
-- `yarn generate:michelangelo-particles` — generate particle data using `scripts/generate-michelangelo-particles.mjs`.
+
 
 ## 🧪 Development Tooling
 

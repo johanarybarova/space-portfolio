@@ -60,5 +60,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: var(--vertical-12xl);
   @include section-layout-container;
+
+  @include min768 {
+    margin-bottom: 200px;
+  }
 }

@@ -23,7 +23,7 @@ ThreeScene/
 ├── README.md
 ├── animation/               # frame tick helpers (scroll, explosion, stars)
 ├── galaxy/                  # spiral points + shaders
-├── michelangelo/            # hand particles + shaders + layout
+
 ├── lib/                     # math + viewport helpers
 ├── postprocessing/          # EffectComposer + bloom
 ├── scroll/                  # DOM section measurements
