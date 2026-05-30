@@ -7,7 +7,7 @@ type UpdateGalaxyScrollParams = {
   delta: number
   currentScrollY: number
   currentSpeedMultiplier: number
-  michelangeloOffset: number
+  heroOffset: number
   isMobileViewport: () => boolean
   getGalaxyBaseTransform: () => GalaxyTransform
 }
@@ -22,7 +22,7 @@ export const updateGalaxyScroll = (params: UpdateGalaxyScrollParams) => {
     delta,
     currentScrollY,
     currentSpeedMultiplier,
-    michelangeloOffset,
+    heroOffset,
     isMobileViewport,
     getGalaxyBaseTransform,
   } = params
@@ -53,7 +53,7 @@ export const updateGalaxyScroll = (params: UpdateGalaxyScrollParams) => {
   const pixelsIntoFly = currentScrollY - startFlyY
 
   if (pixelsIntoFly > 0) {
-    const finishFlyY = michelangeloOffset + 800
+    const finishFlyY = heroOffset + 800
     const totalFlyDistance = finishFlyY - startFlyY
 
     const linearProgress = Math.max(0, Math.min(1.0, pixelsIntoFly / totalFlyDistance))

@@ -6,44 +6,51 @@ import Link from 'next/link'
 import styles from './HomeHero.module.scss'
 
 export const HomeHero = () => (
-  <Flex flexCol justifyCenter itemsCenter as='section' className={styles.section}>
-    <Flex flexCol itemsCenter fullWidth className={styles.contentWrapper}>
-      <Typography as='p' variant='T12Strong' className={styles.statusText}>
-        [ AVAILABLE FOR FREELANCE ]
-      </Typography>
+  <div id='hero-section' className={styles.sectionOuter}>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src='/images/michelangelo_hand_left.svg' alt='' className={styles.handLeft} />
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src='/images/michelangelo_hand_right.svg' alt='' className={styles.handRight} />
 
-      <Typography as='h1' variant='T40Strong' className={styles.headline}>
-        Crafting immersive
-        <br />
-        digital universes
-      </Typography>
+    <Flex flexCol justifyCenter itemsCenter as='section' className={styles.section}>
+      <Flex flexCol itemsCenter fullWidth className={styles.contentWrapper}>
+        <Typography as='p' variant='T12Strong' className={styles.statusText}>
+          [ AVAILABLE FOR FREELANCE ]
+        </Typography>
 
-      <Typography as='p' variant='L20Soft' className={styles.description}>
-        Senior React Frontend Developer focused on building high-performance, accessible, and
-        visually stunning web experiences using modern technologies.
-      </Typography>
+        <Typography as='h1' variant='T40Strong' className={styles.headline}>
+          Crafting immersive
+          <br />
+          digital universes
+        </Typography>
 
-      <Flex gap='var(--gap-m)' className={styles.buttonRow}>
-        <Button
-          as={Link}
-          href='https://github.com/GLObus303'
-          target='_blank'
-          rel='noopener noreferrer'
-          variant='solid'
-        >
-          <Flex itemsCenter gap='8px' as='div'>
-            <GithubIcon className={styles.icon} />
-            <Typography as='span' variant='T16Strong'>
-              GitHub
-            </Typography>
-          </Flex>
-        </Button>
-        <Button as={Link} href='#contact' variant='spark'>
-          Get in Touch
-        </Button>
+        <Typography as='p' variant='L16Soft' className={styles.description}>
+          Senior React Frontend Developer focused on building high-performance, accessible, and
+          visually stunning web experiences using modern technologies.
+        </Typography>
+
+        <Flex gap='var(--gap-m)' className={styles.buttonRow}>
+          <Button
+            as={Link}
+            href='https://github.com/GLObus303'
+            target='_blank'
+            rel='noopener noreferrer'
+            variant='solid'
+          >
+            <Flex itemsCenter gap='8px' as='div'>
+              <GithubIcon className={styles.icon} />
+              <Typography as='span' variant='T16Strong'>
+                GitHub
+              </Typography>
+            </Flex>
+          </Button>
+          <Button as={Link} href='#contact' variant='spark'>
+            Get in Touch
+          </Button>
+        </Flex>
       </Flex>
     </Flex>
-  </Flex>
+  </div>
 )
 
 export default HomeHero

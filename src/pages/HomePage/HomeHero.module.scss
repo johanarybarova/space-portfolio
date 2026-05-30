@@ -1,6 +1,10 @@
 @import '@/styles/breakpoints';
 @import '@/styles/fonts';
 
+.sectionOuter {
+  position: relative;
+}
+
 .section {
   position: relative;
   display: flex;
@@ -52,18 +56,18 @@
   animation: fadeUp 1s ease forwards 0.4s;
 
   @include min768 {
-    @include T56Strong;
+    @include T48Strong;
 
     letter-spacing: -0.02em;
   }
 
   @include min1024 {
-    @include T96Strong;
+    @include T56Strong;
   }
 }
 
 .description {
-  max-width: 680px;
+  max-width: 480px;
   margin-top: var(--vertical-lg);
   color: rgb(255 255 255 / 70%);
   opacity: 0;
@@ -97,4 +101,28 @@
 .icon {
   width: 16px;
   height: 16px;
+}
+
+.handLeft,
+.handRight {
+  position: absolute;
+  display: none;
+  width: calc((100vw - clamp(320px, 26vw, 480px)) / 2 - 64px);
+  pointer-events: none;
+
+  @include min1024 {
+    display: block;
+  }
+}
+
+.handLeft {
+  top: 50%;
+  left: 0;
+  transform: translateY(calc(-50% - 6vh));
+}
+
+.handRight {
+  top: 50%;
+  right: 0;
+  transform: translateY(calc(-50% + 6vh));
 }
